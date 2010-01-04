@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 namespace IRERP.Web.Controls
 {
 
-    [LiquidType("Name", "Columns", "Totalpages", "Pageindex")]
+    [LiquidType("Name", "Columns", "Totalpages", "Pageindex","Totalitems")]
 
     public class IRERPGrid 
     {
@@ -38,7 +38,7 @@ namespace IRERP.Web.Controls
         {
             Orders = new List<IRERPGrid_Order>();
             Columns = new List<IRERPGrid_Column>();
-            PageSize = 10;
+            Pagesize = 10;
             GetDataList = new GetDatas(IRERPGrid.defaultGetDataList);
         }
         public delegate IList GetDatas(IRERPGrid Grid);
@@ -50,16 +50,23 @@ namespace IRERP.Web.Controls
         [JsonIgnore]
         public virtual GetDatas GetDataList { get; set; }
         public virtual List<string> DataColumns { get; set; }
-        public virtual int PageSize { get; set; }
+        public virtual int Pagesize { get; set; }
         public virtual int Pageindex { get; set; }
+        public virtual int Totalitems
+        {
+            get
+            {
+               return GetDataList(this).Count;
+            }
+        }
         [JsonIgnore]
         public virtual int Totalpages
         {
             get
             {
                 int totalitems = GetDataList(this).Count;
-                int Div = totalitems / PageSize;
-                if ((totalitems % PageSize) > 0) Div++;
+                int Div = totalitems / Pagesize;
+                if ((totalitems % Pagesize) > 0) Div++;
                 return Div;
             }
         }
@@ -102,6 +109,7 @@ namespace IRERP.Web.Controls
         void RegisterTags()
         {
             Template.RegisterTag<GetGridRowColumnValue>("GGRCV");
+            Template.RegisterTag<ToJsonTag>("ToJson");
         }
         #region internal Usage
         
@@ -119,8 +127,8 @@ namespace IRERP.Web.Controls
             if (lst.Count == 0) new List<object>();
 
             RetuenLst =(IList) Activator.CreateInstance(lst.GetType());
-            int FromItem = PageSize * Pageindex;
-            int ToItem = FromItem + PageSize;
+            int FromItem = Pagesize * Pageindex;
+            int ToItem = FromItem + Pagesize;
             if (ToItem > lst.Count - 1) ToItem = lst.Count - 1;
             for (int i = FromItem; i <= ToItem; i++)
             {

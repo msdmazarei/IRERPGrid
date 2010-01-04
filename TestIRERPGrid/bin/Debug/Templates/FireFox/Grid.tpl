@@ -14,10 +14,9 @@ Grid Template For Grid {{Grid.Name}}
 	{%endfor%}
 </tr>
 {% endfor %}
-{% comment %}
-Pager Section
-{% endcomment %}
-<button onclick="Next({{Grid.Name}})">Next</button>
+
+{% comment %}Pager Section{% endcomment %}
+{% include Grid.Pager.tpl %}
 
 </table>
 </div>

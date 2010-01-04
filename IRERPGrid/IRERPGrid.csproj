@@ -58,6 +58,7 @@
     <Compile Include="IRERPGrid_DotLiquidFileSystem.cs" />
     <Compile Include="IRERPGrid_Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ToJsonTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -73,6 +74,12 @@
   <ItemGroup>
     <Folder Include="Templates\IE\" />
     <Folder Include="Templates\Safari\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Templates\FireFox\Grid.Data.tpl" />
+    <None Include="Templates\FireFox\Grid.Pager.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

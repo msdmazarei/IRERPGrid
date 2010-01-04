@@ -11,6 +11,57 @@ namespace IRERP.Web.Controls
 
     public class General
     {
+        public static object GetDotLiquidVariable(DotLiquid.Context context, string varname)
+        {
+            
+            var q = (from x in context.Scopes where x.Keys.Contains(varname) select x).FirstOrDefault();
+            if (q != null)
+                return (from x in context.Scopes
+                        from y in x.Keys
+                        where y == varname
+                        select x[y]).FirstOrDefault();
+            q = (from x in context.Environments where x.Keys.Contains(varname) select x).FirstOrDefault();
+            if(q!=null)
+                return (from x in context.Environments
+                        from y in x.Keys
+                        where y == varname
+                        select x[y]).FirstOrDefault();
+
+            return null;
+        }
+        public static Dictionary<string,object> GetDotLiquidVariables(DotLiquid.Context context, List<string> args)
+        {
+            Dictionary<string, object> rtn = new Dictionary<string, object>();
+            if (args != null && context != null && context.Scopes != null)
+            {
+                args.ForEach(x => {
+                    if (!rtn.Keys.Contains(x))
+                    {
+                        object value = null;
+                        x = x.Trim();
+                        
+                        if (x.IndexOf(".") > -1)
+                        {
+                            string masterVar = x.Split('.')[0];
+                            value =GetDotLiquidVariable(context,masterVar);
+                            string[] parts = x.Split('.');
+                            string propn= string.Join(".", parts, 1, parts.Length - 1);
+                            if( value!=null)
+                            value = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetProperty(value, propn);
+                        }
+                        else
+                        {
+                            value =GetDotLiquidVariable(context,x);
+                        }
+                        rtn.Add(x, value);
+                            
+                    }
+                });
+
+            }
+            
+            return rtn;
+        }
 
         
 

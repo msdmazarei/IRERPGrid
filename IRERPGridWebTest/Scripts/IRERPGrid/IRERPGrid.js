@@ -1,4 +1,13 @@
-﻿
+﻿function fetchData(Grid, From, To) {
+    console.log('fetch data called for grid:' + Grid.Name);
+    if (From < 0) {
+        console.log('from can not be less than 0');
+        return;
+    }
+    if (To > Grid.Totalpages * Grid.Pagesize - 1) {
+        
+    }
+}
 function Next(Grid) {
     console.log(Grid.Totalpages);
     callServerMethod(
