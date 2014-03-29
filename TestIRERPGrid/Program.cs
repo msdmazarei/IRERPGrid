@@ -12,9 +12,18 @@ namespace TestIRERPGrid
         static void Main(string[] args)
         {
             IRERP.Web.Controls.IRERPGrid grd = new IRERP.Web.Controls.IRERPGrid() {Name = "Masoud"};
+            grd.GetDataList = new IRERPGrid.GetDatas(x => {
+                
+                List<Type> lst = new List<Type>();
+                AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(y => { lst.AddRange(y.GetTypes()); });
+                
+                return lst;
+                
+            }
+                );
             grd.Columns = new List<IRERPGrid_Column>();
-            grd.Columns.Add(new IRERPGrid_Column() { Name = "Masoud" });
-            grd.Columns.Add(new IRERPGrid_Column() { Name= "Mazarei" });
+            grd.Columns.Add(new IRERPGrid_Column() { Name = "Name" });
+            grd.Columns.Add(new IRERPGrid_Column() { Name= "FullName" });
 
             Console.WriteLine(grd.GetGridForHtmlPage());
             Console.ReadLine();

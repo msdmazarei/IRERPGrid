@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotLiquid">
-      <HintPath>..\TestIRERPGrid\bin\Debug\DotLiquid.dll</HintPath>
+      <HintPath>C:\Users\Mazarei\Documents\Visual Studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\DotLiquid.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="General.cs" />
+    <Compile Include="GetGridRowColumnValue.cs" />
     <Compile Include="IRERPGrid.cs" />
     <Compile Include="IRERPGrid_Column.cs" />
     <Compile Include="IRERPGrid_Order.cs" />

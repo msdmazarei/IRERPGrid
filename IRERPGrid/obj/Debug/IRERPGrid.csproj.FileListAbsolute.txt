@@ -6,11 +6,11 @@ c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\IRERPGrid\bin\D
 c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\IRERPGrid\bin\Debug\DotLiquid.dll
 c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\IRERPGrid\bin\Debug\it\DotLiquid.resources.dll
 c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache
+E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Grid.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\DotLiquid.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\it\DotLiquid.resources.dll
-E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.pdb
