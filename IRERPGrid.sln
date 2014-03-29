@@ -1,0 +1,32 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRERPGrid", "IRERPGrid\IRERPGrid.csproj", "{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIRERPGrid", "TestIRERPGrid\TestIRERPGrid.csproj", "{A099C990-B61C-44A7-B6D7-BC1005B82D0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRERPGridWebTest", "IRERPGridWebTest\IRERPGridWebTest.csproj", "{22B2C056-BF39-461D-B4FD-F92D2C4AF238}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

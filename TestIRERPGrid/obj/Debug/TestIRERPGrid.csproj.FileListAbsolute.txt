@@ -1,0 +1,24 @@
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe.config
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.pdb
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.csprojResolveAssemblyReference.cache
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.exe
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.pdb
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\DotLiquid.dll
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\it\DotLiquid.resources.dll
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.tpl
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\IRERPGrid.dll
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\IRERPGrid.pdb
+c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\App.config
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe.config
+E:\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.exe
+E:\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.pdb
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.tpl
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\App.config
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.pdb
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\DotLiquid.dll
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\IRERPGrid.dll
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\IRERPGrid.pdb
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\it\DotLiquid.resources.dll
+E:\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.csprojResolveAssemblyReference.cache
