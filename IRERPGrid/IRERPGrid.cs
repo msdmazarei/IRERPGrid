@@ -21,6 +21,19 @@ namespace IRERP.Web.Controls
 
             return null;
         }
+        public class IRERPGridRendered
+        {
+            public string HTML { get; set; }
+            public string JavaScript { get; set; }
+            public string ToHtml()
+            {
+                string rtn = "";
+                if (HTML != null) rtn += HTML;
+                if (JavaScript != null) 
+                    rtn += "<script>"+JavaScript+"</script>";
+                return rtn;
+            }
+        }
         public IRERPGrid()
         {
             Orders = new List<IRERPGrid_Order>();
@@ -53,9 +66,10 @@ namespace IRERP.Web.Controls
 
         public virtual List<IRERPGrid_Column> Columns { get; set; }
         
-        public virtual string GetGridForHtmlPage(string templatepath = null)
+    
+        public virtual IRERPGridRendered GetGridForHtmlPage(string templatepath = null)
         {
-            string rtn = "";
+            IRERPGridRendered rtn = new IRERPGridRendered();
             if(DataColumns==null)
                 if(Columns!=null && Columns.Count>0)
                 {
@@ -74,7 +88,11 @@ namespace IRERP.Web.Controls
                 //Html Section
                 template = System.IO.File.ReadAllText(BrowerName + "\\Grid.tpl");
                 Template TMP = Template.Parse(template);
-                rtn = TMP.Render(Hash.FromAnonymousObject(new { Grid = this , GridData = GetDatasToView()}));
+                rtn.HTML= TMP.Render(Hash.FromAnonymousObject(new { Grid = this , GridData = GetDatasToView()}));
+                //POJOs
+                template = System.IO.File.ReadAllText(BrowerName + "\\Grid.js.tpl");
+                TMP = Template.Parse(template);
+                rtn.JavaScript = TMP.Render(Hash.FromAnonymousObject(new { Grid = this, GridData = GetDatasToView() }));
                 
             }
             return rtn;

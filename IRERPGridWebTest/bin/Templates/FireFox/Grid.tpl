@@ -18,6 +18,6 @@ Grid Template For Grid {{Grid.Name}}
 Pager Section
 {% endcomment %}
 <button onclick="Next({{Grid.Name}})">Next</button>
-{% include Grid.js.tpl %}
+
 </table>
 </div>

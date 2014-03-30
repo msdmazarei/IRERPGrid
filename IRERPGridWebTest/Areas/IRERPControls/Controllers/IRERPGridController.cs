@@ -17,7 +17,8 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
             {
                 var Grid = IRERP.Web.Controls.General.GetGrid(gridName);
                 Grid.Pageindex++;
-                string response = Grid.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"\\bin");
+                var response = Grid.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"\\bin");
+                IRERP.Web.Controls.General.StoreGrid(Grid);
                 return new IRERP_RestAPI.Bases.IRERPActionResults.IRERPMethodActionResult()
                 {
                     Success = true,

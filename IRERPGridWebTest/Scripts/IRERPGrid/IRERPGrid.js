@@ -11,7 +11,17 @@ function Next(Grid) {
 }
 function NextCallBack(data, textStatus, jqXHR, additionalParams)
 {
-    document.getElementById("GridContainer-" + additionalParams.GridName).removeNode(true);
+    data = jQuery.parseJSON(data);
+    var html = data.data.HTML;
+    var javascript = data.data.JavaScript;
+
+    var div = document.createElement('DIV');
+    div.innerHTML = html;
+    var newElement = div.firstChild;
+    var gridContainer = document.getElementById("GridContainer-" + additionalParams.GridName);
+    gridContainer.parentElement.replaceChild(newElement, gridContainer)
+    ;
+    eval(javascript);
 }
 
 function DataRecivedFromServer(CallType, data, textStatus, jqXHR, additionalParams)

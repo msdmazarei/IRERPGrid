@@ -14,4 +14,4 @@
     grd.DatasRepository = "IRERPGridWebTest.Repositories.AssemblyRepositoryTest.AllAssemblies()";
     General.StoreGrid(grd);
 }
-@Html.Raw(grd.GetGridForHtmlPage(@"E:\IRERPGrid\IRERPGridWebTest\bin"))
+@Html.Raw(grd.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"\\bin").ToHtml())
