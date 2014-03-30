@@ -33,6 +33,15 @@
     <Reference Include="DotLiquid">
       <HintPath>C:\Users\Mazarei\Documents\Visual Studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\DotLiquid.dll</HintPath>
     </Reference>
+    <Reference Include="IRERP_REST_API_Bases">
+      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
+    </Reference>
+    <Reference Include="MsdLib">
+      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\MsdLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -46,6 +55,7 @@
     <Compile Include="GetGridRowColumnValue.cs" />
     <Compile Include="IRERPGrid.cs" />
     <Compile Include="IRERPGrid_Column.cs" />
+    <Compile Include="IRERPGrid_DotLiquidFileSystem.cs" />
     <Compile Include="IRERPGrid_Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -53,9 +63,12 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\FireFox\Grid.tpl">
+    <Content Include="Templates\FireFox\Grid.js.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Templates\FireFox\Grid.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Templates\IE\" />

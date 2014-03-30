@@ -1,9 +1,10 @@
-﻿Grid Template For Grid {{Grid.Name}}
+﻿<div id="GridContainer-{{Grid.Name}}">
+Grid Template For Grid {{Grid.Name}}
 <br/>
-<table>
+<table data-GridName="{{Grid.Name}}">
 <tr>
  {% for col in Grid.Columns %}
-	<td>{{ col.Name }}</td>
+	<td>{{ col.Title }}</td>
  {% endfor %}
 </tr>
 {% for row in GridData %}
@@ -13,4 +14,10 @@
 	{%endfor%}
 </tr>
 {% endfor %}
+{% comment %}
+Pager Section
+{% endcomment %}
+<button onclick="Next({{Grid.Name}})">Next</button>
+{% include Grid.js.tpl %}
 </table>
+</div>

@@ -7,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace IRERP.Web.Controls
 {
-    [LiquidType("Name")]
+    [LiquidType("Name","Title")]
     public class IRERPGrid_Column
     {
         public virtual string Name { get; set; }
+        public virtual string Title { get; set; }
     }
 }
