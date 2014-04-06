@@ -64,10 +64,10 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Templates\FireFox\Grid.js.tpl">
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.js.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Templates\FireFox\Grid.tpl">
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -76,8 +76,13 @@
     <Folder Include="Templates\Safari\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Templates\FireFox\Grid.Data.tpl" />
-    <None Include="Templates\FireFox\Grid.Pager.tpl">
+    <Content Include="Templates\FireFox\Fetch\Grid.js.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\FireFox\Fetch\Grid.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

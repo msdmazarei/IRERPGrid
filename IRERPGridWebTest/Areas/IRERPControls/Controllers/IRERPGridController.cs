@@ -27,5 +27,24 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
             }
             return null;
         }
+        public ActionResult Fetch()
+        {
+            string gridName = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("GridName");
+            if (gridName != null)
+            {
+                var Grid = IRERP.Web.Controls.General.GetGrid(gridName);
+                string From = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("From");
+                string Count = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("Count");
+                var response = Grid.Fetch(int.Parse(From), int.Parse(Count), null, null,
+                    IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath() + "\\bin");
+                return new IRERP_RestAPI.Bases.IRERPActionResults.IRERPMethodActionResult()
+                {
+                    Success = true,
+                    data = response
+                };
+                
+            }
+        return null;
+        }
     }
 }

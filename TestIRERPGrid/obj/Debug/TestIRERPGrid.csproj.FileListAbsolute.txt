@@ -11,7 +11,6 @@ c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\b
 c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\IRERPGrid.pdb
 c:\users\mazarei\documents\visual studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\App.config
 E:\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.csprojResolveAssemblyReference.cache
-E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.tpl
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\App.config
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe.config
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe
@@ -38,7 +37,6 @@ E:\IRERPGrid\TestIRERPGrid\bin\Debug\NHibernate.xml
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\FluentNHibernate.pdb
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\FluentNHibernate.xml
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\Remotion.Linq.pdb
-E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.js.tpl
 C:\srcs\github\IRERPGrid\TestIRERPGrid\bin\Debug\TestIRERPGrid.exe.config
 C:\srcs\github\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.exe
 C:\srcs\github\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.pdb
@@ -69,3 +67,6 @@ C:\srcs\github\IRERPGrid\TestIRERPGrid\bin\Debug\Remotion.Linq.pdb
 C:\srcs\github\IRERPGrid\TestIRERPGrid\bin\Debug\it\DotLiquid.resources.dll
 C:\srcs\github\IRERPGrid\TestIRERPGrid\obj\Debug\TestIRERPGrid.csprojResolveAssemblyReference.cache
 C:\srcs\github\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.Pager.tpl
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.js.tpl
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.tpl
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.Pager.tpl
