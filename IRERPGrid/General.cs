@@ -90,6 +90,10 @@ namespace IRERP.Web.Controls
                 });
             return str;
         }
+        public static string ToSimpleJSON(object obj)
+        {
+            return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+        }
         public static object DeSerializeFromJson(string str)
         {
             return Newtonsoft.Json.JsonConvert.DeserializeObject(str, new JsonSerializerSettings

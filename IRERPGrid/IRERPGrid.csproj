@@ -81,6 +81,7 @@
     </Content>
     <Content Include="Templates\FireFox\Fetch\Grid.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
     <None Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

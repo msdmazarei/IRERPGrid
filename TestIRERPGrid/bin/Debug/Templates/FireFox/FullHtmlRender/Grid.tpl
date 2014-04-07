@@ -1,7 +1,7 @@
-﻿<div id="GridContainer-{{Grid.Name}}">
+﻿<div id="{{Grid.Divcontainerid}}">
 Grid Template For Grid {{Grid.Name}}
 <br/>
-<table data-GridName="{{Grid.Name}}">
+<table id ="{{Grid.Tabledataid}}" data-GridName="{{Grid.Tabledataid}}">
 <tr>
  {% for col in Grid.Columns %}
 	<td>{{ col.Title }}</td>

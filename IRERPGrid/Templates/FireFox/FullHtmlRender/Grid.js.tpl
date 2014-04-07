@@ -3,8 +3,9 @@
     Pageindex		: {{Grid.Pageindex}},
     Name			: "{{Grid.Name}}",
 	Totalitems		: {{Grid.Totalitems}},
-	Pagesize		:	{{Grid.Pagesize}},
-
+	Pagesize		: {{Grid.Pagesize}},
+	"Fromitemindex"	: {{Grid.Fromitemindex}},
+	"Toitemindex"	: {{Grid.Toitemindex}},
 	//Html Elements Ids & defines
 	Divcontainerid	: "{{Grid.Divcontainerid}}",
 	Tabledataid		: "{{Grid.Tabledataid}}",

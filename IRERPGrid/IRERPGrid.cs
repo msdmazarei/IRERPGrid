@@ -9,11 +9,11 @@ using Newtonsoft.Json;
 namespace IRERP.Web.Controls
 {
 
-    [LiquidType("Name", "Columns", "Totalpages", "Pageindex","Pagesize", "Totalitems", "Divcontainerid",
-        "Tabledataid"
+    [LiquidType("Name", "Columns", "Totalpages", "Pageindex", "Pagesize", "Totalitems", "Divcontainerid",
+        "Tabledataid", "Fromitemindex", "Toitemindex"
         )]
 
-    public class IRERPGrid 
+    public class IRERPGrid
     {
         public static IList defaultGetDataList(IRERPGrid Grid)
         {
@@ -31,8 +31,8 @@ namespace IRERP.Web.Controls
             {
                 string rtn = "";
                 if (HTML != null) rtn += HTML;
-                if (JavaScript != null) 
-                    rtn += "<script>"+JavaScript+"</script>";
+                if (JavaScript != null)
+                    rtn += "<script>" + JavaScript + "</script>";
                 return rtn;
             }
         }
@@ -55,11 +55,13 @@ namespace IRERP.Web.Controls
         public virtual List<string> DataColumns { get; set; }
         public virtual int Pagesize { get; set; }
         public virtual int Pageindex { get; set; }
+        public virtual int Fromitemindex { get; set; }
+        public virtual int Toitemindex { get; set; }
         public virtual int Totalitems
         {
             get
             {
-               return GetDataList(this).Count;
+                return GetDataList(this).Count;
             }
         }
         [JsonIgnore]
@@ -87,8 +89,10 @@ namespace IRERP.Web.Controls
         }
         public virtual IRERPGridRendered GetGridForHtmlPage(string templatepath = null)
         {
+            Fromitemindex = 0;
+            Toitemindex = Pagesize - 1;
             return RenderTemplate("FullHtmlRender\\Grid.tpl", "FullHtmlRender\\Grid.js.tpl", GetDatasToView(), templatepath);
-       
+
 
         }
         void RegisterTags()
@@ -97,7 +101,7 @@ namespace IRERP.Web.Controls
             Template.RegisterTag<ToJsonTag>("ToJson");
         }
         #region internal Usage
-        
+
         protected virtual IList GetDatasToView()
         {
             IList lst = null;
@@ -111,7 +115,7 @@ namespace IRERP.Web.Controls
 
             if (lst.Count == 0) new List<object>();
 
-            RetuenLst =(IList) Activator.CreateInstance(lst.GetType());
+            RetuenLst = (IList)Activator.CreateInstance(lst.GetType());
             int FromItem = Pagesize * Pageindex;
             int ToItem = FromItem + Pagesize;
             if (ToItem > lst.Count - 1) ToItem = lst.Count - 1;
@@ -131,7 +135,7 @@ namespace IRERP.Web.Controls
                 rtn = row.GetType().GetProperty(col.Name).GetValue(row);
             }
             return rtn;
-            
+
         }
 
         #endregion
@@ -149,8 +153,8 @@ namespace IRERP.Web.Controls
         }
         #endregion
         public virtual IRERPGridRendered RenderTemplate(
-            
-            string GridHtmlTemplateName, string JavaScriptTemplaeName, IList inpGridData,string templatepath = null
+
+            string GridHtmlTemplateName, string JavaScriptTemplaeName, IList inpGridData, string templatepath = null
             )
         {
             FillHtmlTemplateProperties();
@@ -187,12 +191,12 @@ namespace IRERP.Web.Controls
 
             }
             return rtn;
-     
+
         }
         public virtual IRERPGridRendered Fetch(
-            int From, 
-            int Count, 
-            List<IRERPGrid_Order> sorts, 
+            int From,
+            int Count,
+            List<IRERPGrid_Order> sorts,
             List<MsdLib.CSharp.BLLCore.MsdCriteria> crits,
             string templatepath = null
             )
@@ -203,12 +207,16 @@ namespace IRERP.Web.Controls
 
             if (From < 0)
             {
-                rtn.JavaScript = "{ErrorCode:-10,ErrorMessage:'From is less than 0, From valid values are 0 or greater than 0'}";
+                rtn.JavaScript = General.ToSimpleJSON(
+                new { ErrorCode = -10, ErrorMessage = "From is less than 0, From valid values are 0 or greater than 0" }
+                );
                 return rtn;
             }
             if (Count < 0)
             {
-                rtn.JavaScript = "{ErrorCode:-11,ErrorMessage:'Count is less than 0, Count valid values are 1 or greater'}";
+                rtn.JavaScript = General.ToSimpleJSON(
+new { ErrorCode = -11, ErrorMessage = "Count is less than 0, Count valid values are 1 or greater" }
+);
                 return rtn;
             }
             try
@@ -216,32 +224,43 @@ namespace IRERP.Web.Controls
                 IList datas = GetDataList(this);
                 if (From > datas.Count - 1)
                 {
-                    rtn.JavaScript = "{ErrorCode:-12,ErrorMessage:'From is greater than Repository datas count.'}";
+                    rtn.JavaScript = General.ToSimpleJSON(
+new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas count." }
+);
                     return rtn;
                 }
                 if (From + Count > datas.Count)
                 {
-                    rtn.JavaScript = "{ErrorCode:-13,ErrorMessage:'From + Count is greater than Repository datas count'}";
+                    Count
+                         = datas.Count - From;
+                    /*
+                    rtn.JavaScript = General.ToSimpleJSON(
+new { ErrorCode = -13, ErrorMessage = "From + Count is greater than Repository datas count" }
+);
+
                     return rtn;
+                     * */
                 }
 
 
                 IList RetuenLst = (IList)Activator.CreateInstance(datas.GetType());
-                for (int i = From; i < From+Count; i++)
+                for (int i = From; i < From + Count; i++)
                     RetuenLst.Add(datas[i]);
-
+                Fromitemindex = From;
+                Toitemindex = From + Count - 1;
+                Pageindex = From / Pagesize;
                 //Render Templates
                 return
                     RenderTemplate("Fetch\\Grid.tpl", "Fetch\\Grid.js.tpl", RetuenLst, templatepath);
 
-                
+
             }
             catch (Exception ex)
             {
-                rtn.JavaScript = "{ErrorCode=-1,ErrorMessage:'"+ex.Message+"'}";
+                rtn.JavaScript = "{ErrorCode=-1,ErrorMessage:'" + ex.Message + "'}";
                 return rtn;
             }
-            
+
             return rtn;
         }
     }
