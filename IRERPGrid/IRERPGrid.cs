@@ -46,8 +46,11 @@ namespace IRERP.Web.Controls
             }
             return dt;
         }
+        [JsonIgnore]
+        public IList __datas = null;
         public static IList defaultGetDataList(IRERPGrid Grid)
         {
+            if (Grid.__datas != null) return Grid.__datas;
             if (Grid.DatasRepository != null && Grid.DatasRepository.IndexOf("()") > 0)
             {
                IList Datas= (IList)General.CallStaticMethod(Grid.DatasRepository);
@@ -77,7 +80,7 @@ namespace IRERP.Web.Controls
                    foreach (DataRow r in dt.Rows)
                        Datas.Add(r);
                }
-
+               Grid.__datas = Datas;
                return Datas;
                
             }
