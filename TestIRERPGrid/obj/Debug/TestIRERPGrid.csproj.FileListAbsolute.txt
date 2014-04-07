@@ -72,3 +72,4 @@ E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.tpl
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.Pager.tpl
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.js.tpl
 E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.tpl
+E:\IRERPGrid\TestIRERPGrid\bin\Debug\Templates\FireFox\Grid.Header.tpl

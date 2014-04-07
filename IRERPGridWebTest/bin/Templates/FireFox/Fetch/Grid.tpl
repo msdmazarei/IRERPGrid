@@ -1,9 +1,4 @@
-﻿<tr>
- {% for col in Grid.Columns %}
-	<td>{{ col.Title }}</td>
- {% endfor %}
-</tr>
-
+﻿{% include Grid.Header.tpl %}
 {% for row in GridData %}
 <tr>
 	{%for col in Grid.Columns %}

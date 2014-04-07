@@ -93,6 +93,7 @@ namespace IRERP.Web.Controls
         public static string ToSimpleJSON(object obj)
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(obj);
+            
         }
         public static object DeSerializeFromJson(string str)
         {

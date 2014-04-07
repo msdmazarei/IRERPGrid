@@ -33,6 +33,7 @@ E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.js.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.Pager.tpl
+E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Grid.Header.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\DotLiquid.dll
@@ -53,6 +54,6 @@ E:\IRERPGrid\IRERPGrid\bin\Debug\FluentNHibernate.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\FluentNHibernate.xml
 E:\IRERPGrid\IRERPGrid\bin\Debug\Remotion.Linq.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\it\DotLiquid.resources.dll
-E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.pdb
+E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache

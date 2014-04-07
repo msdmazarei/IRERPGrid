@@ -4,5 +4,5 @@
  	"Totalitems"		: {{Grid.Totalitems}},
 	"Fromitemindex"			:{{Grid.Fromitemindex}},
 	"Toitemindex"			:{{Grid.Toitemindex}},
-	"data"			: {%ToJson GridData Grid.DataColumns %}
+	"data"			: {%ToJson GridData Grid.Datacolumns %}
 }

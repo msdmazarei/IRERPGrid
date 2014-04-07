@@ -190,6 +190,7 @@ E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\FullHtmlRender\Grid.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\Fetch\Grid.js.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\Fetch\Grid.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\FullHtmlRender\Grid.Pager.tpl
+E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\Grid.Header.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\IRERPGridWebTest.dll
 E:\IRERPGrid\IRERPGridWebTest\bin\IRERPGridWebTest.pdb
 E:\IRERPGrid\IRERPGridWebTest\bin\Antlr3.Runtime.dll

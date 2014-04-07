@@ -6,21 +6,83 @@ using System.Text;
 using System.Threading.Tasks;
 using DotLiquid;
 using Newtonsoft.Json;
+using System.Data;
 namespace IRERP.Web.Controls
 {
 
     [LiquidType("Name", "Columns", "Totalpages", "Pageindex", "Pagesize", "Totalitems", "Divcontainerid",
-        "Tabledataid", "Fromitemindex", "Toitemindex"
+        "Tabledataid", "Fromitemindex", "Toitemindex", "Columns", "DataColunms", "Orders", "Criterias"
         )]
 
     public class IRERPGrid
     {
+        public static DataTable GetDataTable(IRERPGrid Grid, IList datas)
+        {
+            DataTable dt = new System.Data.DataTable();
+            string[] cols = null;
+            //Create Structure
+            if (Grid.Datacolumns != null && Grid.Datacolumns.Count > 0)
+                cols = Grid.Datacolumns.ToArray();
+            else if(Grid.Columns!=null && Grid.Columns.Count>0)
+            {
+                List<string> c = new List<string>();
+                Grid.Columns.ForEach(x => c.Add(x.Name));
+                cols = c.ToArray();
+            }
+            Type datasBeanType = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetGenericTypeConstructor(datas.GetType(),0);
+            //Create Columns
+            foreach (string str in cols)
+            {
+                DataColumn dcol = new DataColumn(str, IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetClassPropertyType(datasBeanType, str));
+                dt.Columns.Add(dcol);
+            }
+            foreach (object o in datas)
+            {
+                List<object> colsvalue = new List<object>();
+                foreach (string str in cols)
+                    colsvalue.Add(IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetProperty(o, str));
+                dt.Rows.Add(colsvalue.ToArray());
+
+            }
+            return dt;
+        }
         public static IList defaultGetDataList(IRERPGrid Grid)
         {
             if (Grid.DatasRepository != null && Grid.DatasRepository.IndexOf("()") > 0)
-                return (IList)General.CallStaticMethod(Grid.DatasRepository);
+            {
+               IList Datas= (IList)General.CallStaticMethod(Grid.DatasRepository);
 
+                //Check that Datas is MsdVirtualCollection or not(that sorts and criterias supports in db 
+               if (
+                   (Grid.Orders != null && Grid.Orders.Count > 0) 
+                   || 
+                   (Grid.Criterias != null && Grid.Criterias.Count > 0)
+                   )
+               {
+                   DataTable dt = GetDataTable(Grid, Datas);
+                   if (Grid.Orders != null && Grid.Orders.Count > 0)
+                   {
+                       //Do Sort
+                       string sortexpr = "";
+                       Grid.Orders.ForEach(x=> sortexpr+=x.Columnname+" "+x.Ordertype.ToString()+",");
+                       sortexpr = sortexpr.Substring(0, sortexpr.Length - 1);
+                       dt.DefaultView.Sort = sortexpr;
+                       dt = dt.DefaultView.ToTable();
+                   }
+                   if (Grid.Criterias != null && Grid.Criterias.Count > 0)
+                   {
+                       //Do Criteria
+                   }
+                   Datas = new List<DataRow>();
+                   foreach (DataRow r in dt.Rows)
+                       Datas.Add(r);
+               }
 
+               return Datas;
+               
+            }
+
+           
             return null;
         }
         public class IRERPGridRendered
@@ -52,7 +114,7 @@ namespace IRERP.Web.Controls
         public virtual List<MsdLib.CSharp.BLLCore.MsdCriteria> Criterias { get; set; }
         [JsonIgnore]
         public virtual GetDatas GetDataList { get; set; }
-        public virtual List<string> DataColumns { get; set; }
+        public virtual List<string> Datacolumns { get; set; }
         public virtual int Pagesize { get; set; }
         public virtual int Pageindex { get; set; }
         public virtual int Fromitemindex { get; set; }
@@ -132,7 +194,13 @@ namespace IRERP.Web.Controls
             object rtn = null;
             if (row != null)
             {
-                rtn = row.GetType().GetProperty(col.Name).GetValue(row);
+                if (row.GetType() == typeof(DataRow))
+                {
+                    int ind = ((DataRow)row).Table.Columns.IndexOf(col.Name);
+                    rtn = ((DataRow)row).ItemArray[ind];
+                }
+                else
+                    rtn = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetProperty(row, col.Name);
             }
             return rtn;
 
@@ -160,11 +228,11 @@ namespace IRERP.Web.Controls
             FillHtmlTemplateProperties();
 
             IRERPGridRendered rtn = new IRERPGridRendered();
-            if (DataColumns == null)
+            if (Datacolumns == null)
                 if (Columns != null && Columns.Count > 0)
                 {
-                    DataColumns = new List<string>();
-                    Columns.ForEach(x => DataColumns.Add(x.Name));
+                    Datacolumns = new List<string>();
+                    Columns.ForEach(x => Datacolumns.Add(x.Name));
                 }
 
             RegisterTags();

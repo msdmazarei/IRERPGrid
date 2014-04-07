@@ -14,7 +14,7 @@ namespace IRERP.Web.Controls
 
     public class IRERPGrid_Order
     {
-        public virtual OrderType OrderType { get; set; }
-        public virtual string ColumnName { get; set; }
+        public virtual OrderType Ordertype { get; set; }
+        public virtual string Columnname { get; set; }
     }
 }

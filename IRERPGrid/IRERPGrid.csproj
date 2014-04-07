@@ -69,6 +69,7 @@
     </Content>
     <Content Include="Templates\FireFox\FullHtmlRender\Grid.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,10 @@
     </Content>
     <None Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\FireFox\Grid.Header.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
