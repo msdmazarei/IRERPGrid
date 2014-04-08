@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IRERP.Web.Controls
+namespace IRERP.Web.Controls.Tags
 {
     /// <summary>
     /// GGRCV Tag

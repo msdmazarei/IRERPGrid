@@ -1,0 +1,9 @@
+E:\IRERPGrid\DotLiquid\DotLiquid\bin\Debug\DotLiquid.dll
+E:\IRERPGrid\DotLiquid\DotLiquid\bin\Debug\DotLiquid.pdb
+E:\IRERPGrid\DotLiquid\DotLiquid\bin\Debug\it\DotLiquid.resources.dll
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\DotLiquid.Properties.Resources.resources
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\DotLiquid.Properties.Resources.it.resources
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\DotLiquid.csproj.GenerateResource.Cache
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\it\DotLiquid.resources.dll
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\DotLiquid.dll
+E:\IRERPGrid\DotLiquid\DotLiquid\obj\Debug\DotLiquid.pdb

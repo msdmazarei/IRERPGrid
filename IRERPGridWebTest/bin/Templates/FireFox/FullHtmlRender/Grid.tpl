@@ -3,6 +3,8 @@ Grid Template For Grid {{Grid.Name}}
 <br/>
 <table id ="{{Grid.Tabledataid}}" data-GridName="{{Grid.Tabledataid}}">
 {% include Grid.Header.tpl %}
+
+ <tbody>
 {% for row in GridData %}
 <tr>
 	{%for col in Grid.Columns %}
@@ -10,7 +12,8 @@ Grid Template For Grid {{Grid.Name}}
 	{%endfor%}
 </tr>
 {% endfor %}
-
+</tbody>
+  
 {% comment %}Pager Section{% endcomment %}
 {% include FullHtmlRender/Grid.Pager.tpl %}
 

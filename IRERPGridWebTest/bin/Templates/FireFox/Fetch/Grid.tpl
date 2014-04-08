@@ -1,4 +1,7 @@
-﻿{% include Grid.Header.tpl %}
+﻿{%comment%}
+{% include Grid.Header.tpl %}
+{%endcomment%}
+
 {% for row in GridData %}
 <tr>
 	{%for col in Grid.Columns %}

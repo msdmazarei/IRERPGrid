@@ -32,7 +32,9 @@ E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.js.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.js.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Fetch\Grid.tpl
+E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\ColumnFilter\Grid.Header.Filter.String.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\FullHtmlRender\Grid.Pager.tpl
+E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Grid.Header.Filter.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\Templates\FireFox\Grid.Header.tpl
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERPGrid.pdb
@@ -45,6 +47,7 @@ E:\IRERPGrid\IRERPGrid\bin\Debug\NHibernate.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\FluentNHibernate.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\Antlr3.Runtime.dll
 E:\IRERPGrid\IRERPGrid\bin\Debug\Remotion.Linq.dll
+E:\IRERPGrid\IRERPGrid\bin\Debug\DotLiquid.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\IRERP_REST_API_Bases.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\MsdLib.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\System.Net.Http.Formatting.xml
@@ -54,6 +57,6 @@ E:\IRERPGrid\IRERPGrid\bin\Debug\FluentNHibernate.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\FluentNHibernate.xml
 E:\IRERPGrid\IRERPGrid\bin\Debug\Remotion.Linq.pdb
 E:\IRERPGrid\IRERPGrid\bin\Debug\it\DotLiquid.resources.dll
+E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.dll
 E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.pdb
-E:\IRERPGrid\IRERPGrid\obj\Debug\IRERPGrid.csprojResolveAssemblyReference.cache

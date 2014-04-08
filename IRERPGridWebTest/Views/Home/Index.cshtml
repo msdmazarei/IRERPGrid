@@ -9,8 +9,8 @@
 @{
     var grd = new IRERPGrid(){Name="GridAssemblies"+Request.GetHashCode().ToString(), ViewName =  VirtualPath};
     grd.Columns = new List<IRERPGrid_Column>();
-    grd.Columns.Add(new IRERPGrid_Column() { Name="Name",Title="نام"});
-    grd.Columns.Add(new IRERPGrid_Column() { Name="FullName",Title="نام کامل"});
+    grd.Columns.Add(new IRERPGrid_Column() { Name="Name",Title="نام",type="string"});
+    grd.Columns.Add(new IRERPGrid_Column() { Name="FullName",Title="نام کامل",type="string"});
     grd.DatasRepository = "IRERPGridWebTest.Repositories.AssemblyRepositoryTest.AllAssemblies()";
     General.StoreGrid(grd);
 }

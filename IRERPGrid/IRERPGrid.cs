@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DotLiquid;
 using Newtonsoft.Json;
 using System.Data;
+using IRERP.Web.Controls.Tags;
 namespace IRERP.Web.Controls
 {
 
@@ -21,9 +22,15 @@ namespace IRERP.Web.Controls
             DataTable dt = new System.Data.DataTable();
             string[] cols = null;
             //Create Structure
+            List<string> lststring = new List<string>();
+
             if (Grid.Datacolumns != null && Grid.Datacolumns.Count > 0)
-                cols = Grid.Datacolumns.ToArray();
-            else if(Grid.Columns!=null && Grid.Columns.Count>0)
+            {
+                Grid.Datacolumns.ForEach(x => lststring.Add(x.Name));
+                cols = lststring.ToArray();
+            }
+
+            else if (Grid.Columns != null && Grid.Columns.Count > 0)
             {
                 List<string> c = new List<string>();
                 Grid.Columns.ForEach(x => c.Add(x.Name));
@@ -117,7 +124,7 @@ namespace IRERP.Web.Controls
         public virtual List<MsdLib.CSharp.BLLCore.MsdCriteria> Criterias { get; set; }
         [JsonIgnore]
         public virtual GetDatas GetDataList { get; set; }
-        public virtual List<string> Datacolumns { get; set; }
+        public virtual List<IRERPGrid_Column> Datacolumns { get; set; }
         public virtual int Pagesize { get; set; }
         public virtual int Pageindex { get; set; }
         public virtual int Fromitemindex { get; set; }
@@ -164,6 +171,8 @@ namespace IRERP.Web.Controls
         {
             Template.RegisterTag<GetGridRowColumnValue>("GGRCV");
             Template.RegisterTag<ToJsonTag>("ToJson");
+            Template.RegisterTag<MsdDebugTag>("MsdDebug");
+            Template.RegisterTag<MsdInclude>("MsdInclude");
         }
         #region internal Usage
 
@@ -233,11 +242,8 @@ namespace IRERP.Web.Controls
             IRERPGridRendered rtn = new IRERPGridRendered();
             if (Datacolumns == null)
                 if (Columns != null && Columns.Count > 0)
-                {
-                    Datacolumns = new List<string>();
-                    Columns.ForEach(x => Datacolumns.Add(x.Name));
-                }
-
+                    Datacolumns = Columns;
+                
             RegisterTags();
             if (GridHtmlTemplateName.IndexOf('\\') != 0)
                 GridHtmlTemplateName = "\\" + GridHtmlTemplateName;

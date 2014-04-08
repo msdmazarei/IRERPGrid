@@ -30,9 +30,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotLiquid">
-      <HintPath>C:\Users\Mazarei\Documents\Visual Studio 2012\Projects\IRERPGrid\TestIRERPGrid\bin\Debug\DotLiquid.dll</HintPath>
-    </Reference>
     <Reference Include="IRERP_REST_API_Bases">
       <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
     </Reference>
@@ -52,13 +49,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="General.cs" />
-    <Compile Include="GetGridRowColumnValue.cs" />
+    <Compile Include="Tags\MsdInclude.cs" />
+    <Compile Include="Tags\MsdDebugTag.cs" />
+    <Compile Include="Tags\GetGridRowColumnValue.cs" />
     <Compile Include="IRERPGrid.cs" />
     <Compile Include="IRERPGrid_Column.cs" />
     <Compile Include="IRERPGrid_DotLiquidFileSystem.cs" />
     <Compile Include="IRERPGrid_Order.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ToJsonTag.cs" />
+    <Compile Include="Tags\ToJsonTag.cs" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -84,13 +83,25 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="Templates\FireFox\ColumnFilter\Grid.Header.Filter.String.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Templates\FireFox\Grid.Header.Filter.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Templates\FireFox\Grid.Header.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotLiquid\DotLiquid\DotLiquid.csproj">
+      <Project>{cb9372cd-9c1d-47ab-92d8-702d4d68324f}</Project>
+      <Name>DotLiquid</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
