@@ -9,7 +9,8 @@
 	"DataColumns"	:	{%ToJson Grid.Datacolumns%},
 	"Columns"		:	{%ToJson Grid.Columns%},
 	"Orders"		:	{%ToJson Grid.Orders%},
-	"Criterias"		:	{%ToJson Grid.Criterias%},
+	"AdvancedCriterias"		:	{%ToJson Grid.Criterias%},
+	"ClientColumnCriterias"	:	[],
 	//Html Elements Ids & defines
 	Divcontainerid	: "{{Grid.Divcontainerid}}",
 	Tabledataid		: "{{Grid.Tabledataid}}",

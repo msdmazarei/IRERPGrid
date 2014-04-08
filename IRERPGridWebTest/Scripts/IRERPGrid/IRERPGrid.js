@@ -32,10 +32,20 @@ function Grid_fetchData(Grid, From, Count, sorts, criterias, afterSuccess, after
         From: From,
         Count: Count,
     };
+    //Sorts
     if (sorts == null)
         sorts = Grid.Orders;
     if (sorts != null && sorts.length > 0)
         requestParams.ColumnsSorts = toJSON(sorts);
+
+    //Client Crits
+    var clientcrits = Grid_Filter_getClientColumnCriterias(Grid);
+    if (clientcrits != null && clientcrits.length > 0)
+        requestParams.ClientColumnCriteria = toJSON(clientcrits);
+    //Advance Criterias
+    var advcrits = Grid_Filter_getAdvancedCriterias(Grid);
+    if (advcrits != null && advcrits.length > 0)
+        requestParams.AdvancedCriterias = toJSON(advcrits);
 
     callServerMethod('/IRERPControls/IRERPGrid/Fetch',
         requestParams,
@@ -145,6 +155,70 @@ function Grid_Sort_RemoveColumnSort(Grid, ColName) {
     Grid.Orders.splice(index, 1);
     Grid_First(Grid);
 }
+//====================================
+//------------Grid Filter Functions
+// Grid Supports 2 Different Criteria Mode, First ClientColumnCriteria, and AdvanceCriteria
+// One of them must send to server for a fetch not Both, if Both Sends to Server, Server Return 
+// Result of filter: AdvanceCriteria && ClientColumnCriteria, 
+// AdvancedCriteria is collection of MsdCriteria {operator:"",Field:"",Values:""}
+// CliemtColumnCriteria is collection of POJOS {Columnname:"",Condition:""}
+
+function Grid_Filter_DoFilter(Grid) {
+    Grid_Filter_MakeClientColumnCriterias(Grid);
+    Grid_First(Grid);
+}
+function Grid_Filter_getClientColumnCriterias(Grid) {
+    if (Grid.ClientColumnCriteria == null)
+        Grid.ClientColumnCriteria = [];
+    return Grid.ClientColumnCriteria;
+}
+function Grid_Filter_getClientColumnCriteriaForCol(Grid, ColName) {
+    var crits = Grid_Filter_getClientColumnCriterias();
+    if (crits.length > 0)
+        for (i = 0; i < crits.length; i++)
+            if (crits[i].Columnname == ColName)
+                return crits[i];
+}
+function Grid_Filter_AddClientColumnCriteria(Grid, ColName, Condition) {
+    Grid_Filter_getClientColumnCriterias(Grid).push({ Columnname: ColName, Condition: Condition });
+}
+function Grid_Filter_ClearClientColumnCriterias(Grid) {
+    var crits = Grid_Filter_getClientColumnCriterias(Grid);
+    clearArray(crits);
+}
+function Grid_Filter_MakeClientColumnCriterias(Grid) {
+    //Clear Old Values
+    Grid_Filter_ClearClientColumnCriterias(Grid);
+    //Get HTML FORM
+    var filterform = Grid_Filter_getHeaderFilterForm(Grid);
+    if (filterform != null) {
+        if(filterform.length>0)
+            for (i = 0; i < filterform.length; i++) {
+                var formitem = filterform[i]; 
+                var columnname = formitem.dataset.columnname; //Get Column Name
+                var columncondition = formitem.value; // Get Column Filter
+
+                if (columnname != null && columnname != '' && columncondition != null && columncondition != '')
+                    Grid_Filter_AddClientColumnCriteria(Grid, columnname, columncondition);
+            }
+    }
+
+}
+function Grid_Filter_getHeaderFilterForm(Grid) {
+    for (i = 0; i < document.forms.length; i++)
+        if (document.forms[i].id == Grid_Filter_getHeaderFilterFormId(Grid))
+            return document.forms[i];
+}
+function Grid_Filter_getHeaderFilterFormId(Grid) {
+    return Grid.Tabledataid + '-HeaderForm';
+}
+
+function Grid_Filter_getAdvancedCriterias(Grid) {
+    if (Grid.AdvancedCriterias == null)
+        Grid.AdvancedCriterias = [];
+    return Grid.AdvancedCriterias;
+}
+       
 
 //====================================
 
@@ -153,6 +227,13 @@ function Grid_Sort_RemoveColumnSort(Grid, ColName) {
 function debuglog(message) {
     console.log
     (message);
+}
+function clearArray(array) {
+    //Here the fastest working implementation while keeping the same array:
+    //ref: http://stackoverflow.com/questions/1232040/how-to-empty-an-array-in-javascript
+    if (array != null && array.length > 0)
+        while (array.length > 0)
+            array.pop();
 }
 function DataRecivedFromServer(CallType, data, textStatus, jqXHR, additionalParams) {
     switch (CallType) {
