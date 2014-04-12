@@ -18,5 +18,5 @@
 	</table>
 
 	{% comment %}Pager Section{% endcomment %}
-	{% include FullHtmlRender/Grid.Pager.tpl %}
+	{% include FullHtmlRender/Grid.Pager.tpl with Grid %}
 </div>

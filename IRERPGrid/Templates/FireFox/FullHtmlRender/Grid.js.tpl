@@ -1,18 +1,30 @@
-﻿var {{Grid.Name}}={
-    Totalpages		: {{Grid.Totalpages}},
-    Pageindex		: {{Grid.Pageindex}},
-    Name			: "{{Grid.Name}}",
-	Totalitems		: {{Grid.Totalitems}},
-	Pagesize		: {{Grid.Pagesize}},
-	"Fromitemindex"	: {{Grid.Fromitemindex}},
-	"Toitemindex"	: {{Grid.Toitemindex}},
-	"DataColumns"	:	{%ToJson Grid.Datacolumns%},
-	"Columns"		:	{%ToJson Grid.Columns%},
-	"Orders"		:	{%ToJson Grid.Orders%},
-	"Criterias"		:	{%ToJson Grid.Criterias%},
-	//Html Elements Ids & defines
-	Divcontainerid	: "{{Grid.Divcontainerid}}",
-	Tabledataid		: "{{Grid.Tabledataid}}",
+﻿(function(yourcode) {
+    yourcode(window.jQuery, window, document);
+}(function($, window, document) {
+    $(function() {
+        window.grids = [];
 
-	data : {%ToJson GridData Grid.Datacolumns %}
-};
+        var gridContainer = window.grid = $('[data-grid-name]');
+
+        var gridOptions={
+            totalPages      : {{Grid.Totalpages}},
+            currentPage     : {{Grid.Pageindex}},
+            gridName        : "{{Grid.Name}}",
+            totalItems      : {{Grid.Totalitems}},
+            pageSize        : {{Grid.Pagesize}},
+            from            : {{Grid.Fromitemindex}},
+            to              : {{Grid.Toitemindex}},
+            "DataColumns"   :   {%ToJson Grid.Datacolumns%},
+            "Columns"       :   {%ToJson Grid.Columns%},
+            "Orders"        :   {%ToJson Grid.Orders%},
+            Criteria        :   {%ToJson Grid.Criterias%},
+            //Html Elements Ids & defines
+            Divcontainerid  : "{{Grid.Divcontainerid}}",
+            Tabledataid     : "{{Grid.Tabledataid}}",
+
+            data : {%ToJson GridData Grid.Datacolumns %}
+        };
+
+        window.grids.push(gridContainer.IRERPGrid(gridOptions));
+    });
+}));
