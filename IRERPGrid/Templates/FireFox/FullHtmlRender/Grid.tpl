@@ -1,21 +1,22 @@
-﻿<div id="{{Grid.Divcontainerid}}">
-Grid Template For Grid {{Grid.Name}}
-<br/>
-<table id ="{{Grid.Tabledataid}}" data-GridName="{{Grid.Tabledataid}}">
-{% include Grid.Header.tpl %}
+﻿<div id="{{Grid.Divcontainerid}}" data-grid-name="{{Grid.Name}}" role='application'>
+	<div role='toolbar'></div>
 
- <tbody>
-{% for row in GridData %}
-<tr>
-	{%for col in Grid.Columns %}
-		<td>{% GGRCV row col %}</td>
-	{%endfor%}
-</tr>
-{% endfor %}
-</tbody>
-  
-{% comment %}Pager Section{% endcomment %}
-{% include FullHtmlRender/Grid.Pager.tpl %}
+	<table id="{{Grid.Tabledataid}}" role='grid'>
+		<caption>Grid Template For Grid {{Grid.Name}}</caption>
 
-</table>
+		{% include Grid.Header.tpl %}
+
+		<tbody>
+		{% for row in GridData %}
+			<tr>
+			{%for col in Grid.Columns %}
+				<td>{% GGRCV row col %}</td>
+			{%endfor%}
+			</tr>
+		{% endfor %}
+		</tbody>
+	</table>
+
+	{% comment %}Pager Section{% endcomment %}
+	{% include FullHtmlRender/Grid.Pager.tpl %}
 </div>

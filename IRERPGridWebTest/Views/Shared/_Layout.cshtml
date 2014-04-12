@@ -5,7 +5,6 @@
         <title>@ViewBag.Title - My ASP.NET MVC Application</title>
         <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
         <meta name="viewport" content="width=device-width" />
-        <script src="/Scripts/IRERPGrid/IRERPGrid.js"></script>
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
     </head>
@@ -43,7 +42,10 @@
             </div>
         </footer>
 
+        @Scripts.Render("~/bundles/underscore")
         @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/backbone")
+        <script src="/Scripts/q.js"></script>
+        <script src="/Scripts/IRERPGrid/IRERPGrid.js"></script>
     </body>
 </html>
