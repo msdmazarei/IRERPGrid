@@ -1,15 +1,28 @@
 ﻿(function(yourcode) {
-    yourcode(window.jQuery, window._, window.Backbone.Events, window, document);
+    var __ = Object.create( window._ );
+    __.jsonStringify = function(obj) { return JSON.stringify(obj) };
+
+    yourcode(window.jQuery, __, window.Backbone.Events, window, document);
 }(function($, _, EventEmitter, window, document) {
+    "use strict";
 
-/*********************************************************/
-var GridCacheManager = {}
+/*********************************************************
+ * GridCacheManager -                   * currently stub *
+ *********************************************************/
+var GridCacheManager = {};
 
-/*********************************************************/
-
+/*********************************************************
+ * GridColumn -                         * currently stub *
+ *********************************************************/
 var GridColumn = {
+    name: 'columnName',
+    display: 'Column Name',
+    order: null,    /* 'asc' or 'desc' or null */
+    filter: null,   /* a string or an object */
+    valueMap: function( value ) { return value; },
+    cssMap: function( value ) { return null }
+};
 
-}
 /****************************************************************************/
 var GridDataSource = Object.create( EventEmitter );
 
@@ -17,13 +30,15 @@ GridDataSource.init = function(gridName) {
     this.uri = '/IRERPControls/IRERPGrid/Fetch';
     this.items = [];
 
+    this.activeFetchRequest = null;
+
     this.gridName = gridName;
     this.state = {
         currentPage: null,
         pageSize: 10,
         totalPages: null,
         totalItems: null,
-        sort: null,
+        sort: {},
         filter: null
     };
 };
@@ -36,26 +51,51 @@ GridDataSource.getPage = function(index, options) {
     return this._fetch({from: fromIndex, count: pageSize});
 };
 
+GridDataSource.sortBy = function(columnName, order) {
+    if (_.isString(columnName))
+        this.state.sort[columnName] = order;
+    else // if (_.isObject(columnName) )
+        _.extend(this.state.sort, columnName);
+};
+GridDataSource.sortOff = function(columnName) {
+    delete this.state.sort[columnName];
+}
+
 GridDataSource._fetch = function(options) {
+    if (this.activeFetchRequest !== null)
+        this.activeFetchRequest.abort();
+
     var that = this;
     var requestParams = {
         GridName: that.gridName,
         From: options.from,
-        Count: options.count
+        Count: options.count,
+
+        ColumnsSorts: _.jsonStringify(_.map(this.state.sort, function(order, ColName) {
+            return { Columnname: colName, Ordertype: order };
+        }))
     };
+
     this._ajax({
         url: this.uri,
         type: 'POST',
         data: requestParams,
-        context: this
-    }).then(_.bind(function(result) {
-        this.items = result.items.json;
+        context: this,
+        beforeSend: function(jqXHR) {
+            this.activeFetchRequest = jqXHR;
+        }
+    }).then(_.bind(
+        function(result) {
+            this.activeFetchRequest = null;
 
-        _.extend(this.state, result.stats);
+            this.items = result.items.json;
 
-        this.trigger('refresh', result.items.html, this.state);
-    }, this)).catch(function(error) {
-        console.log(error);
+            // Merge result.stats with this.state
+            _.extend(this.state, result.stats);
+
+            this.trigger('refresh', result.items.html, this.state);
+        }, this)
+    ).catch(function(error) {
         console.log('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
     }).done();
 };
@@ -84,12 +124,38 @@ GridDataSource._ajax = function() {
     }, /* Unexptected HTTP errors */ function(xhr) {
         throw { ErrorCode: xhr.status, ErrorMessage: xhr.statusText };
     });
-}
+};
 
-/****************************************************************************/
+/****************************************************************************
+ * View manager for Grid's THEAD section
+ */
+var GridHeader = Object.create( EventEmitter );
+
+GridHeader.init = function( header ) {
+    this.$el = $(header);
+
+    this.$el.on('click', 'th', _.bind(this._onColumnClick, this));
+};
+
+GridHeader._onColumnClick = function(e) {
+    var col = $(e.target),
+        colName = col.data('column-name'),
+        colOrder = col.data('column-sort-order') || 0;
+
+    var orderMap = [null, 'asc', 'desc'];
+
+    col.data('column-sort-order', (colOrder + 1) % 3);
+    this.trigger('orderChanged', colName, orderMap[(colOrder + 1) % 3]);
+
+    // TODO: put UI stuff here.
+};
+
+/****************************************************************************
+ * View manager for Grid's pager section
+ */
 var GridPager = Object.create( EventEmitter );
-GridPager.init = function($pager, totalPages) {
-    this.$el = $pager;
+GridPager.init = function(pager, totalPages) {
+    this.$el = $(pager);
 
     this.reset(totalPages || 0);
 
@@ -99,7 +165,7 @@ GridPager.reset = function(totalPages, currentPage) {
     this.totalPages = totalPages;
     this.currentPage = currentPage || 0;
 
-    // TODO: Put the UI stuff here.
+    // TODO: Put UI stuff (e.g. disabling nav buttons when appropriate) here.
     this.$el.children('.current-page').text(this.currentPage + 1 + ' / ' + this.totalPages);
 };
 
@@ -122,7 +188,7 @@ var Grid = {
         var options = initializationOptions || {};
 
         this.$container = $(container);
-        this.$table = this.$container.children('table');
+        this.$table = this.$container.children('table[role=grid]');
         this.$toolbar = this.$container.children('[role=toolbar]');
 
         var gridName = this.name = this.$container.data('grid-name');
@@ -131,10 +197,19 @@ var Grid = {
         this.dataSource.init(this.name);
         this.dataSource.on('refresh', this._refreshGrid, this);
 
+        var headerElem = this.$table.children('thead');
+        this.header = Object.create( GridHeader );
+        this.header.init(headerElem);
+        this.header.on('orderChanged', this._columnOrderChanged, this);
+
         var pagerElem = this.$container.children('[role=navigation]');
         this.pager = Object.create( GridPager );
         this.pager.init(pagerElem, options.totalPages);
         this.pager.on('requestPage', this._requestPage, this)
+    },
+
+    refresh: function() {
+        this._requestPage(0);
     },
 
     _refreshGrid: function(itemsHTML, state) {
@@ -144,7 +219,15 @@ var Grid = {
 
     _requestPage: function(page) {
         this.dataSource.getPage(page);
-        //console.log('Page changed to #' + this.pager.currentPage);
+    },
+
+    _columnOrderChanged: function(columnName, order) {
+        if (order !== null)
+            this.dataSource.sortBy(columnName, order);
+        else
+            this.dataSource.sortOff(columnName);
+
+        this.refresh();
     }
 };
 

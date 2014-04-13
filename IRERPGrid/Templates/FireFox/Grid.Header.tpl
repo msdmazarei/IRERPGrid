@@ -1,12 +1,10 @@
 ﻿<thead>
-<tr>
-  {% for col in Grid.Columns %}
-  
-  
-	<td>
-    <a href="javascript:void(0)" onclick="Grid_HeaderClick({{Grid.Name}},'{{col.Name}}');">{{ col.Title }}</a>
-    {% include Grid.Header.Filter.tpl  %}
-  </td>
- {% endfor %}
-</tr>
+	<tr>
+	{% for col in Grid.Columns %}
+		<th data-column-name='{{col.Name}}'>
+			{{col.Title}}
+    		{% include Grid.Header.Filter.tpl %}
+  		</th>
+ 	{% endfor %}
+	</tr>
 </thead>
