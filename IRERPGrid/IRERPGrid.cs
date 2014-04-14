@@ -104,7 +104,7 @@ namespace IRERP.Web.Controls
                 string rtn = "";
                 if (HTML != null) rtn += HTML;
                 if (JavaScript != null)
-                    rtn += "<script>" + JavaScript + "</script>";
+                    rtn += "<script type='text/javascript' defer>" + JavaScript + "</script>";
                 return rtn;
             }
         }

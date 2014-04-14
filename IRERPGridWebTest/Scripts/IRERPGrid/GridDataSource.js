@@ -41,7 +41,7 @@ GridDataSource.sortBy = function(columnName, order) {
 };
 GridDataSource.sortOff = function(columnName) {
     delete this.state.sort[columnName];
-}
+};
 
 GridDataSource._fetch = function(options) {
     if (this.activeFetchRequest !== null)
@@ -77,7 +77,7 @@ GridDataSource._fetch = function(options) {
 
             this.trigger('refresh', result.items.html, this.state);
         }, this)
-    ).catch(function(error) {
+    ).fail(function(error) {
         console.log('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
     }).done();
 };
