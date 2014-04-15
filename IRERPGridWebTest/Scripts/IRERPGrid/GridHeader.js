@@ -12,9 +12,11 @@
 var GridHeader = Object.create( EventEmitter );
 
 GridHeader.init = function( header ) {
-    this.$el = $(header);
+    this.$filters = $(header).children('tr.column-filters');
+    this.$headers = $(header).children('tr.column-headers');
 
-    this.$el.on('click', 'th', _.bind(this._onColumnClick, this));
+    this.$headers.on('click', 'th', _.bind(this._onColumnClick, this));
+    this.$filters.on('keypress', 'input', _.bind(this._onFilter, this));
 };
 
 GridHeader._onColumnClick = function(e) {
@@ -25,9 +27,27 @@ GridHeader._onColumnClick = function(e) {
     var orderMap = [null, 'asc', 'desc'];
 
     col.data('column-sort-order', (colOrder + 1) % 3);
-    this.trigger('orderChanged', colName, orderMap[(colOrder + 1) % 3]);
+    this.trigger('order', colName, orderMap[(colOrder + 1) % 3]);
 
     // TODO: put UI stuff here.
+};
+
+GridHeader._onFilter = function(e) {
+    if (e.which == 13) {
+        var filters = {};
+        this.$filters.children('th').each(function(index, el) {
+            var $el = $(el).children('input');
+
+            if (!_.isEmpty($el.val()))
+                filters[$el.data('column-name')] = $el.val();
+        });
+        this.trigger('filter', filters);
+
+        // Select text inside active filter box
+        $(e.target).select();
+
+        e.preventDefault();
+    }
 };
 
 return GridHeader;

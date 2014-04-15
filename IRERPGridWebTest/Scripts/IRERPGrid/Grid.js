@@ -23,7 +23,8 @@ var Grid = {
         var headerElem = this.$table.children('thead');
         this.header = Object.create( IRERP.GridHeader );
         this.header.init(headerElem);
-        this.header.on('orderChanged', this._columnOrderChanged, this);
+        this.header.on('order', this._columnOrderChanged, this);
+        this.header.on('filter', this.filter, this)
 
         var pagerElem = this.$container.children('[role=navigation]');
         this.pager = Object.create( IRERP.GridPager );
@@ -33,6 +34,11 @@ var Grid = {
 
     refresh: function() {
         this._requestPage(0);
+    },
+
+    filter: function(filters) {
+        this.dataSource.filterByColumn(filters);
+        this.refresh();
     },
 
     _refreshGrid: function(itemsHTML, state) {
@@ -45,11 +51,7 @@ var Grid = {
     },
 
     _columnOrderChanged: function(columnName, order) {
-        if (order !== null)
-            this.dataSource.sortBy(columnName, order);
-        else
-            this.dataSource.sortOff(columnName);
-
+        this.dataSource.sort(columnName, order);
         this.refresh();
     }
 };

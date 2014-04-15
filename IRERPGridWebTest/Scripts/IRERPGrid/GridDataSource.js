@@ -21,7 +21,7 @@ GridDataSource.init = function(gridName) {
         totalPages: null,
         totalItems: null,
         sort: {},
-        filter: null
+        filter: {}
     };
 };
 
@@ -33,14 +33,22 @@ GridDataSource.getPage = function(index, options) {
     return this._fetch({from: fromIndex, count: pageSize});
 };
 
-GridDataSource.sortBy = function(columnName, order) {
-    if (_.isString(columnName))
+GridDataSource.sort = function(columnName, order) {
+    if (order != null)
         this.state.sort[columnName] = order;
-    else // if (_.isObject(columnName) )
-        _.extend(this.state.sort, columnName);
+    else
+        delete this.state.sort[columnName];
 };
-GridDataSource.sortOff = function(columnName) {
-    delete this.state.sort[columnName];
+
+GridDataSource.filterByColumn = function(columnName, filter) {
+    var filters = {};
+
+    if (_.isObject(columnName))
+        filters = columnName;
+    else if (!_.isEmpty(filter))
+        filters[columnName] = filter;
+
+    _.extend(this.state.filter, filters);
 };
 
 GridDataSource._fetch = function(options) {
@@ -55,6 +63,10 @@ GridDataSource._fetch = function(options) {
 
         ColumnsSorts: JSON.stringify(_.map(this.state.sort, function(order, colName) {
             return { Columnname: colName, Ordertype: order };
+        })),
+
+        ClientColumnCriteria: JSON.stringify(_.map(this.state.filter, function(filter, colName) {
+            return { Columnname: colName, Condition: filter };
         }))
     };
 
