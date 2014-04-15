@@ -1,10 +1,10 @@
-(function(factory) {
-    var root = this;
+define('Grid', ['require', 'exports', 'module', 'jquery', 'GridDataSource', 'GridPager', 'GridHeader'], function(require, exports, module) {
 
-    root.IRERP.Grid = factory(root.jQuery, root.IRERP);
+var $ = require('jquery');
 
-}(function($, IRERP) {
-    "use strict";
+var GridDataSource = require('GridDataSource');
+var GridHeader = require('GridHeader');
+var GridPager = require('GridPager');
 
 var Grid = {
     init: function(container, initializationOptions) {
@@ -16,18 +16,18 @@ var Grid = {
 
         var gridName = this.name = this.$container.data('grid-name');
 
-        this.dataSource = Object.create( IRERP.GridDataSource );
+        this.dataSource = Object.create( GridDataSource );
         this.dataSource.init(this.name);
         this.dataSource.on('refresh', this._refreshGrid, this);
 
         var headerElem = this.$table.children('thead');
-        this.header = Object.create( IRERP.GridHeader );
+        this.header = Object.create( GridHeader );
         this.header.init(headerElem);
         this.header.on('order', this._columnOrderChanged, this);
         this.header.on('filter', this.filter, this)
 
         var pagerElem = this.$container.children('[role=navigation]');
-        this.pager = Object.create( IRERP.GridPager );
+        this.pager = Object.create( GridPager );
         this.pager.init(pagerElem, options.totalPages);
         this.pager.on('requestPage', this._requestPage, this)
     },
@@ -58,4 +58,4 @@ var Grid = {
 
 return Grid;
 
-}));
+});

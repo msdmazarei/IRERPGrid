@@ -1,10 +1,11 @@
-(function(factory) {
-    var root = this;
+define('GridPager', ['require', 'exports', 'module', 'jquery', 'underscore', 'backbone'], function(require, exports, module) {
 
-    root.IRERP.GridPager =
-        factory(window.jQuery, window._, Backbone.Events);
-}(function($, _, EventEmitter) {
-    "use strict";
+var $ = require('jquery');
+var _ = require('underscore');
+
+var EventEmitter = require('backbone').Events;
+
+"use strict";
 
 /****************************************************************************
  * View manager for Grid's pager section
@@ -39,4 +40,4 @@ GridPager._navButtonsClick = function(e) {
 };
 
 return GridPager;
-}));
+});

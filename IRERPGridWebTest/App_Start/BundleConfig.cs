@@ -8,14 +8,13 @@ namespace IRERPGridWebTest
         // For more information on Bundling, visit http://go.microsoft.com/fwlink/?LinkId=254725
         public static void RegisterBundles(BundleCollection bundles)
         {
-            bundles.Add(new ScriptBundle("~/bundles/libs").Include(
-                        "~/Scripts/jquery-{version}.js",
+            bundles.Add(new ScriptBundle("~/bundles/libraries").Include(
+                        "~/Scripts/jquery.js",
                         "~/Scripts/underscore.js",
                         "~/Scripts/backbone.js",
                         "~/Scripts/q.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/IRERPGrid").Include(
-                        "~/Scripts/IRERP.js",
                         "~/Scripts/IRERPGrid/GridDataSource.js",
                         "~/Scripts/IRERPGrid/GridHeader.js",
                         "~/Scripts/IRERPGrid/GridPager.js",
@@ -42,7 +41,7 @@ namespace IRERPGridWebTest
                         "~/Content/themes/base/jquery.ui.datepicker.css",
                         "~/Content/themes/base/jquery.ui.progressbar.css",
                         "~/Content/themes/base/jquery.ui.theme.css"));
-            BundleTable.EnableOptimizations = true;
+            // BundleTable.EnableOptimizations = true;
         }
     }
 }

@@ -8,9 +8,11 @@
         @Styles.Render("~/Content/css")
 
         @Scripts.Render("~/bundles/modernizr")
-        @Scripts.Render("~/bundles/libs")
-        <script src='@Scripts.Url("~/bundles/IRERPGrid")' defer> </script>
-    </head>
+
+        <script type="text/javascript" src="~/Scripts/mini_require.js"></script>
+
+        @Scripts.Render("~/bundles/libraries")
+        @Scripts.Render("~/bundles/IRERPGrid")</head>
     <body>
         <header>
             <div class="content-wrapper">

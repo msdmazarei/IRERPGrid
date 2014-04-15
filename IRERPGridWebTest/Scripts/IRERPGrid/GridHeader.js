@@ -1,10 +1,11 @@
-(function(factory) {
-    var root = this;
+define('GridHeader', ['require', 'exports', 'module', 'jquery', 'underscore', 'backbone'], function(require, exports, module, $, _) {
 
-    root.IRERP.GridHeader =
-        factory(window.jQuery, window._, Backbone.Events);
-}(function($, _, EventEmitter) {
-    "use strict";
+var $ = require('jquery');
+var _ = require('underscore');
+
+var EventEmitter = require('backbone').Events;
+
+"use strict";
 
 /****************************************************************************
  * View manager for Grid's THEAD section
@@ -51,4 +52,4 @@ GridHeader._onFilter = function(e) {
 };
 
 return GridHeader;
-}));
+});

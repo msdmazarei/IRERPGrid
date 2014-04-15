@@ -1,10 +1,9 @@
-(function(factory) {
-    var root = this;
+define('GridDataSource', ['require', 'exports', 'module', 'jquery', 'underscore', 'backbone', 'q'], function(require, exports, module) {
 
-    root.IRERP.GridDataSource =
-        factory(window.jQuery, window._, window.Q, Backbone.Events);
-}(function($, _, Q, EventEmitter) {
-    "use strict";
+var $ = require('jquery');
+var _ = require('underscore');
+var Q = require('q');
+var EventEmitter = require('backbone').Events;
 
 var GridDataSource = Object.create( EventEmitter );
 
@@ -122,4 +121,4 @@ GridDataSource._ajax = function() {
 
 return GridDataSource;
 
-}));
+});
