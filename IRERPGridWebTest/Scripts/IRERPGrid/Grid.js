@@ -8,13 +8,14 @@ var GridPager = require('GridPager');
 
 var Grid = {
     init: function(container, initializationOptions) {
-        var options = initializationOptions || {};
+        var options = this._normalizeOptions(initializationOptions || {});
 
         this.$container = $(container);
         this.$table = this.$container.children('table[role=grid]');
         this.$toolbar = this.$container.children('[role=toolbar]');
 
         var gridName = this.name = this.$container.data('grid-name');
+        this.columns = options.columns || {};
 
         this.dataSource = Object.create( GridDataSource );
         this.dataSource.init(this.name);
@@ -22,7 +23,7 @@ var Grid = {
 
         var headerElem = this.$table.children('thead');
         this.header = Object.create( GridHeader );
-        this.header.init(headerElem);
+        this.header.init(headerElem, options.columns);
         this.header.on('order', this._columnOrderChanged, this);
         this.header.on('filter', this.filter, this)
 
@@ -39,6 +40,26 @@ var Grid = {
     filter: function(filters) {
         this.dataSource.filterByColumn(filters);
         this.refresh();
+    },
+
+    _normalizeOptions: function(options) {
+        if (!options) return;
+
+        if (_.has(options, 'DataColumns')) {
+            options.columns = _.indexBy(options.DataColumns, 'Name');
+            delete options.DataColumns;
+        }
+
+        if (_.has(options, 'Columns')) {
+            if (_.isEmpty(options.columns))
+                options.columns = _.indexBy(options.Columns, 'Name');
+
+            _.forEach(options.Columns, function(col) {
+                options.columns[col.Name].visible = true;
+            });
+
+            delete options.Columns;
+        }
     },
 
     _refreshGrid: function(itemsHTML, state) {
