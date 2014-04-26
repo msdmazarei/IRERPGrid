@@ -26,11 +26,12 @@ GridHeader._onColumnClick = function(e) {
         colOrder = col.data('column-sort-order') || 0;
 
     var orderMap = [null, 'asc', 'desc'];
+    var colOrderClass = orderMap[(colOrder + 1) % 3];
 
     col.data('column-sort-order', (colOrder + 1) % 3);
-    this.trigger('order', colName, orderMap[(colOrder + 1) % 3]);
+    col.attr('class', colOrderClass);
 
-    // TODO: put UI stuff here.
+    this.trigger('order', colName, colOrderClass);
 };
 
 GridHeader._onFilter = function(e) {

@@ -89,7 +89,10 @@ GridDataSource._fetch = function(options) {
             this.trigger('refresh', result.items.html, this.state);
         }, this)
     ).fail(function(error) {
-        console.log('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
+        if (error.ErrorCode)
+            console.log('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
+        else
+            throw error;
     }).done();
 };
 

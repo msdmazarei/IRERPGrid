@@ -1,36 +1,38 @@
-define('Grid', ['require', 'exports', 'module', 'jquery', 'GridDataSource', 'GridPager', 'GridHeader'], function(require, exports, module) {
+define('Grid', ['require', 'exports', 'module', 'jquery', 'GridDataSource', 'GridPager', 'GridHeader', 'GridTable'], function(require, exports, module) {
 
 var $ = require('jquery');
 
 var GridDataSource = require('GridDataSource');
 var GridHeader = require('GridHeader');
 var GridPager = require('GridPager');
+var GridTable = require('GridTable');
 
 var Grid = {
-    init: function(container, initializationOptions) {
-        var options = this._normalizeOptions(initializationOptions || {});
+    init: function(container, options) {
+        this._normalizeOptions(options);
 
         this.$container = $(container);
         this.$table = this.$container.children('table[role=grid]');
         this.$toolbar = this.$container.children('[role=toolbar]');
 
-        var gridName = this.name = this.$container.data('grid-name');
+        this.name = this.$container.data('grid-name');
         this.columns = options.columns || {};
 
         this.dataSource = Object.create( GridDataSource );
         this.dataSource.init(this.name);
         this.dataSource.on('refresh', this._refreshGrid, this);
 
-        var headerElem = this.$table.children('thead');
         this.header = Object.create( GridHeader );
-        this.header.init(headerElem, options.columns);
+        this.header.init(this.$table.children('thead'));
         this.header.on('order', this._columnOrderChanged, this);
-        this.header.on('filter', this.filter, this)
+        this.header.on('filter', this.filter, this);
 
-        var pagerElem = this.$container.children('[role=navigation]');
+        this.body = Object.create( GridTable );
+        this.body.init(this.$table.children('tbody'));
+
         this.pager = Object.create( GridPager );
-        this.pager.init(pagerElem, options.totalPages);
-        this.pager.on('requestPage', this._requestPage, this)
+        this.pager.init(this.$container.children('[role=navigation]'), options.totalPages);
+        this.pager.on('requestPage', this._requestPage, this);
     },
 
     refresh: function() {
@@ -43,7 +45,7 @@ var Grid = {
     },
 
     _normalizeOptions: function(options) {
-        if (!options) return;
+        options = options || {};
 
         if (_.has(options, 'DataColumns')) {
             options.columns = _.indexBy(options.DataColumns, 'Name');
@@ -60,11 +62,13 @@ var Grid = {
 
             delete options.Columns;
         }
+
+        this.options = options;
     },
 
     _refreshGrid: function(itemsHTML, state) {
         this.pager.reset(state.totalPages, state.currentPage);
-        this.$table.children('tbody').html(itemsHTML);
+        this.body.setContents(itemsHTML);
     },
 
     _requestPage: function(page) {
