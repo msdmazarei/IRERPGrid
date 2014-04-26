@@ -1,10 +1,11 @@
-(function(factory) {
-    var root = this;
+define('GridHeader', ['require', 'exports', 'module', 'jquery', 'underscore', 'backbone'], function(require, exports, module, $, _) {
 
-    root.IRERP.GridHeader =
-        factory(window.jQuery, window._, Backbone.Events);
-}(function($, _, EventEmitter) {
-    "use strict";
+var $ = require('jquery');
+var _ = require('underscore');
+
+var EventEmitter = require('backbone').Events;
+
+"use strict";
 
 /****************************************************************************
  * View manager for Grid's THEAD section
@@ -25,11 +26,12 @@ GridHeader._onColumnClick = function(e) {
         colOrder = col.data('column-sort-order') || 0;
 
     var orderMap = [null, 'asc', 'desc'];
+    var colOrderClass = orderMap[(colOrder + 1) % 3];
 
     col.data('column-sort-order', (colOrder + 1) % 3);
-    this.trigger('order', colName, orderMap[(colOrder + 1) % 3]);
+    col.attr('class', colOrderClass);
 
-    // TODO: put UI stuff here.
+    this.trigger('order', colName, colOrderClass);
 };
 
 GridHeader._onFilter = function(e) {
@@ -51,4 +53,4 @@ GridHeader._onFilter = function(e) {
 };
 
 return GridHeader;
-}));
+});

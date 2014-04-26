@@ -1,7 +1,7 @@
 ﻿<div id="{{Grid.Divcontainerid}}" data-grid-name="{{Grid.Name}}" role='application'>
 	<div role='toolbar'></div>
 
-	<table id="{{Grid.Tabledataid}}" role='grid'>
+	<table id="{{Grid.Tabledataid}}" role='grid' tabindex='0'>
 		<caption>Grid Template For Grid {{Grid.Name}}</caption>
 
 		{% include Grid.Header.tpl %}

@@ -1,6 +1,4 @@
-﻿(function(yourcode) {
-    yourcode(window.jQuery, window);
-}(function($, window) {
+﻿window.require(['jquery', 'jquery-irerp-grid'], function($) {
     $(function() {
         window.grids = [];
 
@@ -28,4 +26,4 @@
 
         window.grids.push(gridContainer.IRERPGrid(gridOptions));
     });
-}));
+});

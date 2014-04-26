@@ -1,9 +1,4 @@
-﻿(function(factory) {
-    var root = this;
-
-    factory(window.jQuery, root.IRERP.Grid);
-}(function($, Grid) {
-    "use strict";
+﻿define('jquery-irerp-grid', ['require', 'exports', 'module', 'jquery', 'Grid'], function(require, exports, module) {
 
 /*********************************************************
  * GridCacheManager -                   * currently stub *
@@ -22,6 +17,9 @@ var GridColumn = {
     cssMap: function( value ) { return null }
 };
 
+var $ = require('jquery');
+var Grid = require('Grid');
+
 $.fn.extend({
     IRERPGrid: function(options) {
         this.grid = Object.create( Grid );
@@ -31,4 +29,4 @@ $.fn.extend({
     }
 });
 
-}));
+});

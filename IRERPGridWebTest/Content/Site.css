@@ -115,7 +115,7 @@ h5, h6 {
     }
 
 header .content-wrapper {
-    padding-top: 20px; 
+    padding-top: 20px;
 }
 
 footer {
@@ -534,17 +534,20 @@ table {
     border: 0 none;
 }
 
+table:focus, tbody:focus, thead:focus, tfoot:focus {
+    outline: none;
+}
+
+tr.active {
+    background-color: rgba(0,0,0,0.1);
+}
+
 th {
     font-size: 1.2em;
     text-align: left;
     border: none 0px;
     padding-left: 0;
 }
-
-    th a {
-        display: block;
-        position: relative;
-    }
 
     th a:link, th a:visited, th a:active, th a:hover {
         color: #333;
@@ -553,27 +556,24 @@ th {
         padding: 0;
     }
 
-    th a:hover {
+    th:hover {
         color: #000;
     }
 
-    th.asc a, th.desc a {
+    th.asc, th.desc {
         margin-right: .75em;
     }
 
-    th.asc a:after, th.desc a:after {
+    th.asc:after, th.desc:after {
         display: block;
-        position: absolute;
-        right: 0em;
-        top: 0;
         font-size: 0.75em;
     }
 
-    th.asc a:after {
+    th.asc:after {
         content: '▲';
     }
 
-    th.desc a:after {
+    th.desc:after {
         content: '▼';
     }
 
