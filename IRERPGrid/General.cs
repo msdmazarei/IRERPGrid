@@ -105,6 +105,16 @@ namespace IRERP.Web.Controls
             //  return ser.Deserialize(new System.IO.MemoryStream(buf));
 
         }
+        public static T DeSerializeFromJson<T>(string str)
+            
+        {
+            try
+            {
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<T>(str);
+            }catch{
+                return default(T);
+            }
+        }
         public static void StoreGrid(IRERPGrid Grid)
         {
             string GridSessionIdentifier = Grid.Name;
@@ -143,6 +153,18 @@ namespace IRERP.Web.Controls
 
 
             return rtn;
+        }
+        public static bool CorrectInGrammar( Irony.Parsing.Grammar grammer,string text)
+        {
+            Irony.Parsing.Parser p = new Irony.Parsing.Parser(grammer);
+            return !p.Parse(text).HasErrors();
+        }
+        public static Irony.Parsing.ParseTree getGrammarTree(Irony.Parsing.Grammar grammar,string text)
+        {
+            Irony.Parsing.Parser p = new Irony.Parsing.Parser(grammar);
+            var rtn = p.Parse(text);
+            if(rtn.HasErrors()) return null; else return rtn;
+
         }
     }
 }

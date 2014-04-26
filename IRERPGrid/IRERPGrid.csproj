@@ -33,6 +33,12 @@
     <Reference Include="IRERP_REST_API_Bases">
       <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
     </Reference>
+    <Reference Include="Irony">
+      <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.dll</HintPath>
+    </Reference>
+    <Reference Include="Irony.Interpreter">
+      <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.Interpreter.dll</HintPath>
+    </Reference>
     <Reference Include="MsdLib">
       <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\MsdLib.dll</HintPath>
     </Reference>
@@ -48,7 +54,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClientColumnCriteria.cs" />
     <Compile Include="General.cs" />
+    <Compile Include="IRERPGridColCriteriaGrammar.cs" />
     <Compile Include="Tags\MsdInclude.cs" />
     <Compile Include="Tags\MsdDebugTag.cs" />
     <Compile Include="Tags\GetGridRowColumnValue.cs" />

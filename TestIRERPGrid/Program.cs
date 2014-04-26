@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using IRERP.Web.Controls;
 using System.Collections;
+using Irony.Parsing;
 namespace TestIRERPGrid
 {
     class Program
@@ -25,20 +26,15 @@ namespace TestIRERPGrid
         
         static void Main(string[] args)
         {
-            IRERP.Web.Controls.IRERPGrid grd = new IRERP.Web.Controls.IRERPGrid() {Name = "Masoud"};
-            grd.DatasRepository = "TestIRERPGrid.Program.TestDataRepo()";
-            grd.Columns = new List<IRERPGrid_Column>();
-            grd.Columns.Add(new IRERPGrid_Column() { Name = "Name" });
-            grd.Columns.Add(new IRERPGrid_Column() { Name= "FullName" });
-
-            Console.WriteLine(grd.GetGridForHtmlPage());
+            IRERPGridColCriteriaGrammar a = new IRERPGridColCriteriaGrammar();
+            Parser b = new Parser(a);
+            var brtn = b.Parse(">1");
+            Console.WriteLine(brtn.HasErrors());
             Console.ReadLine();
-        /*    Template template = Template.Parse("hi {{name}}");  // Parses and compiles the template
-            Hash a = new Hash();
-            a.Add("name", "tobi");
-            Console.WriteLine(
-                template.Render(a)
-                ); // Renders the output => "hi tobi"*/
+            
+
+
+           
         }
     }
 }

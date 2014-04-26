@@ -1,1 +1,1 @@
-﻿<input type="text" name="{{Grid.Tabledataid}}-ColumnFilter-{{col.Name}}" data-Columnname="{{col.Name}}"/>
+﻿<input type="text" name="{{Grid.Tabledataid}}-ColumnFilter-{{col.Name}}" data-column-name="{{col.Name}}"/>

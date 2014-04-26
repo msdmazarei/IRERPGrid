@@ -77,6 +77,7 @@ namespace IRERP.Web.Controls
                        Grid.Orders.ForEach(x=> sortexpr+=x.Columnname+" "+x.Ordertype.ToString()+",");
                        sortexpr = sortexpr.Substring(0, sortexpr.Length - 1);
                        dt.DefaultView.Sort = sortexpr;
+                       
                        dt = dt.DefaultView.ToTable();
                    }
                    if (Grid.Criterias != null && Grid.Criterias.Count > 0)
@@ -310,13 +311,6 @@ new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas cou
                 {
                     Count
                          = datas.Count - From;
-                    /*
-                    rtn.JavaScript = General.ToSimpleJSON(
-new { ErrorCode = -13, ErrorMessage = "From + Count is greater than Repository datas count" }
-);
-
-                    return rtn;
-                     * */
                 }
 
 
