@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MsdLib.CSharp.BLLCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,5 +17,12 @@ namespace IRERP.Web.Controls
     {
         public virtual OrderType Ordertype { get; set; }
         public virtual string Columnname { get; set; }
+        public OrderBy ToOrderBy()
+        {
+            OrderBy o = new OrderBy();
+            o.SortType = Ordertype == OrderType.Asc ? SortType.Asc : SortType.Desc;
+            o.PropertyName = Columnname;
+            return o;
+        }
     }
 }

@@ -8,6 +8,7 @@ using DotLiquid;
 using Newtonsoft.Json;
 using System.Data;
 using IRERP.Web.Controls.Tags;
+using MsdLib.CSharp.BLLCore;
 namespace IRERP.Web.Controls
 {
 
@@ -61,7 +62,26 @@ namespace IRERP.Web.Controls
             if (Grid.DatasRepository != null && Grid.DatasRepository.IndexOf("()") > 0)
             {
                IList Datas= (IList)General.CallStaticMethod(Grid.DatasRepository);
+               if (Datas!=null && 
+                   IRERP_RestAPI.Bases.IRERPApplicationUtilities.IsSubclassOfRawGeneric(typeof(IRERP_RestAPI.Bases.DataVirtualization.IRERPVList<,>),
+                   Datas.GetType()))
+               {
+                   dynamic __datas = Datas;
+                   dynamic filter = __datas.Filter;
+                   if (filter.Orders == null) filter.Orders = new List<OrderBy>();
+                   if (Grid.Orders.Count > 0) 
+                   foreach (var o in Grid.Orders)
+                       filter.Orders.Add(o.ToOrderBy());
+                   if (filter.Criterias == null) filter.Criterias = new List<MsdCriteria>();
+                   
+                   if (Grid.Criterias!=null && Grid.Criterias.Count > 0)
+                       foreach (var c in Grid.Criterias)
+                           filter.Criterias.Add(c);
+                   __datas.Filter = filter;
+                   Grid.__datas = __datas;
 
+               }
+               else
                 //Check that Datas is MsdVirtualCollection or not(that sorts and criterias supports in db 
                if (
                    (Grid.Orders != null && Grid.Orders.Count > 0) 
@@ -127,6 +147,12 @@ namespace IRERP.Web.Controls
         public virtual string ViewName { get; set; }
         //Can Be Method like a.b.c() or can be property like a.v.c.d
         public virtual string DatasRepository { get; set; }
+        public virtual string StartUpMethod { get; set; }
+        public virtual void CallStartupMethod()
+        {
+            if (StartUpMethod != null && StartUpMethod.Trim() != "") 
+            General.CallStaticMethod(StartUpMethod);
+        }
         public virtual List<IRERPGrid_Order> Orders { get; set; }
         public virtual List<MsdLib.CSharp.BLLCore.MsdCriteria> Criterias { get; set; }
         [JsonIgnore]
@@ -196,7 +222,13 @@ namespace IRERP.Web.Controls
 
             if (lst.Count == 0) new List<object>();
 
+            if (IRERP_RestAPI.Bases.IRERPApplicationUtilities.IsSubclassOfRawGeneric(typeof(IRERP_RestAPI.Bases.DataVirtualization.IRERPVList<,>), lst.GetType()))
+            {
+                RetuenLst = new List<object>();
+            } 
+            else
             RetuenLst = (IList)Activator.CreateInstance(lst.GetType());
+
             int FromItem = Pagesize * Pageindex;
             int ToItem = FromItem + Pagesize;
             if (ToItem > lst.Count - 1) ToItem = lst.Count - 1;
@@ -319,8 +351,14 @@ new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas cou
                          = datas.Count - From;
                 }
 
+                IList RetuenLst;
 
-                IList RetuenLst = (IList)Activator.CreateInstance(datas.GetType());
+                if (IRERP_RestAPI.Bases.IRERPApplicationUtilities.IsSubclassOfRawGeneric(typeof(IRERP_RestAPI.Bases.DataVirtualization.IRERPVList<,>), datas.GetType()))
+                {
+                    RetuenLst = new List<object>();
+                }
+                else
+                    RetuenLst = (IList)Activator.CreateInstance(datas.GetType());
                 for (int i = From; i < From + Count; i++)
                     RetuenLst.Add(datas[i]);
                 Fromitemindex = From;

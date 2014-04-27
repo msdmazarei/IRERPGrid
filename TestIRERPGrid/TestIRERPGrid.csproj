@@ -35,6 +35,17 @@
     <Reference Include="DotLiquid">
       <HintPath>..\packages\DotLiquid.1.7.0\lib\NET40\DotLiquid.dll</HintPath>
     </Reference>
+    <Reference Include="FluentNHibernate, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="IRERP_RestAPI_Models">
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\IRERP_RestAPI_Models.dll</HintPath>
+    </Reference>
+    <Reference Include="IRERP_REST_API_Bases, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\IRERP_REST_API_Bases.dll</HintPath>
+    </Reference>
     <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.dll</HintPath>
@@ -42,8 +53,19 @@
     <Reference Include="Irony.Interpreter">
       <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.Interpreter.dll</HintPath>
     </Reference>
+    <Reference Include="MsdLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\MsdLib.dll</HintPath>
+    </Reference>
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\NHibernate.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />

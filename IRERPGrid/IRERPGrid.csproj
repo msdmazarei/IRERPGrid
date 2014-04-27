@@ -39,9 +39,6 @@
     <Reference Include="Irony.Interpreter">
       <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.Interpreter.dll</HintPath>
     </Reference>
-    <Reference Include="MsdLib">
-      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\MsdLib.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -109,6 +106,10 @@
     <ProjectReference Include="..\DotLiquid\DotLiquid\DotLiquid.csproj">
       <Project>{cb9372cd-9c1d-47ab-92d8-702d4d68324f}</Project>
       <Name>DotLiquid</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\irerp\MsdLib\MsdLib.csproj">
+      <Project>{42aac68e-5650-4dad-858e-d0f9e9ac563b}</Project>
+      <Name>MsdLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

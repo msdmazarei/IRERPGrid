@@ -57,7 +57,7 @@ namespace IRERP.Web.Controls
                             switch (node.ChildNodes[0].ChildNodes[0].Term.Name)
                             {
                                 case "critSeed":
-                                    rtn=getByCritSeed(node.ChildNodes[0].ChildNodes[0]);
+                                    rtn = getByCritSeed(node.ChildNodes[0].ChildNodes[0]);
                                     break;
                                 case "crit":
                                     rtn = getByCritTerm(node.ChildNodes[0].ChildNodes[0]);

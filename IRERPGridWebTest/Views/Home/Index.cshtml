@@ -9,9 +9,10 @@
 @{
     var grd = new IRERPGrid(){Name="GridAssemblies"+Request.GetHashCode().ToString(), ViewName =  VirtualPath};
     grd.Columns = new List<IRERPGrid_Column>();
-    grd.Columns.Add(new IRERPGrid_Column() { Name="Name",Title="نام",type="string"});
-    grd.Columns.Add(new IRERPGrid_Column() { Name="FullName",Title="نام کامل",type="string"});
+    grd.Columns.Add(new IRERPGrid_Column() { Name="Name",Title="Name",type="string"});
+    grd.Columns.Add(new IRERPGrid_Column() { Name = "FullName", Title = "FullName", type = "string" });
     grd.DatasRepository = "IRERPGridWebTest.Repositories.AssemblyRepositoryTest.AllAssemblies()";
+    
     General.StoreGrid(grd);
 }
 @Html.Raw(grd.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"bin").ToHtml())

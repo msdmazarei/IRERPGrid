@@ -9,6 +9,11 @@ namespace IRERPGridWebTest.Controllers
 {
     public class HomeController : Controller
     {
+        protected override IAsyncResult BeginExecute(System.Web.Routing.RequestContext requestContext, AsyncCallback callback, object state)
+        {
+          
+            return base.BeginExecute(requestContext, callback, state);
+        }
         public ActionResult Index()
         {
             return View();

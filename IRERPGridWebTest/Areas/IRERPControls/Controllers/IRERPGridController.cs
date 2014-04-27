@@ -16,6 +16,7 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
             if (gridName != null)
             {
                 var Grid = IRERP.Web.Controls.General.GetGrid(gridName);
+                Grid.CallStartupMethod();
                 Grid.Pageindex++;
                 var response = Grid.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"\\bin");
                 IRERP.Web.Controls.General.StoreGrid(Grid);
@@ -30,10 +31,12 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
         [ValidateInput(false)]
         public ActionResult Fetch()
         {
+           
             string gridName = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("GridName");
             if (gridName != null)
             {
                 var Grid = IRERP.Web.Controls.General.GetGrid(gridName);
+                Grid.CallStartupMethod();
                 string From = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("From");
                 string Count = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("Count");
                 string orders = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("ColumnsSorts");

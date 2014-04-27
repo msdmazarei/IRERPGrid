@@ -39,8 +39,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IRERP_REST_API_Bases">
-      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
+    <Reference Include="FluentNHibernate, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\FluentNHibernate.dll</HintPath>
+    </Reference>
+    <Reference Include="IRERP_RestAPI_Models">
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\IRERP_RestAPI_Models.dll</HintPath>
+    </Reference>
+    <Reference Include="IRERP_REST_API_Bases, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\IRERP_REST_API_Bases.dll</HintPath>
     </Reference>
     <Reference Include="Irony, Version=1.0.0.0, Culture=neutral, PublicKeyToken=ca48ace7223ead47, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -51,9 +59,9 @@
       <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.Interpreter.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="MsdLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="NHibernate, Version=3.3.1.4000, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\MsdLib.dll</HintPath>
+      <HintPath>D:\irerp\IRERP-RestAPI\bin\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -201,6 +209,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="General.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -334,6 +343,10 @@
     <ProjectReference Include="..\IRERPGrid\IRERPGrid.csproj">
       <Project>{dddd612f-e86a-4c10-b055-eee6bf30c36a}</Project>
       <Name>IRERPGrid</Name>
+    </ProjectReference>
+    <ProjectReference Include="D:\irerp\MsdLib\MsdLib.csproj">
+      <Project>{42aac68e-5650-4dad-858e-d0f9e9ac563b}</Project>
+      <Name>MsdLib</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
