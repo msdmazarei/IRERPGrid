@@ -39,15 +39,8 @@ GridDataSource.sort = function(columnName, order) {
         delete this.state.sort[columnName];
 };
 
-GridDataSource.filterByColumn = function(columnName, filter) {
-    var filters = {};
-
-    if (_.isObject(columnName))
-        filters = columnName;
-    else if (!_.isEmpty(filter))
-        filters[columnName] = filter;
-
-    _.extend(this.state.filter, filters);
+GridDataSource.setFilter = function(filters) {
+    this.state.filter = filters;
 };
 
 GridDataSource._fetch = function(options) {
@@ -90,7 +83,7 @@ GridDataSource._fetch = function(options) {
         }, this)
     ).fail(function(error) {
         if (error.ErrorCode)
-            console.log('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
+            console.error('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
         else
             throw error;
     }).done();
