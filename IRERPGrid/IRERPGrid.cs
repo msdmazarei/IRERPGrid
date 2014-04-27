@@ -334,7 +334,13 @@ new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas cou
             }
             catch (Exception ex)
             {
-                rtn.JavaScript = "{ErrorCode=-1,ErrorMessage:'" + ex.Message + "'}";
+                rtn.JavaScript = General.ToSimpleJSON(
+                    new
+                    {
+                        ErrorCode = -1,
+                        ErrorMessage = ex.Message
+                    }
+                );
                 return rtn;
             }
 
