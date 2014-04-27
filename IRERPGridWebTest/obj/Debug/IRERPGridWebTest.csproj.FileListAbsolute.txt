@@ -185,7 +185,6 @@ C:\srcs\github\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.csprojResol
 C:\srcs\github\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.dll
 C:\srcs\github\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.pdb
 C:\srcs\github\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\Grid.Pager.tpl
-E:\IRERPGrid\IRERPGridWebTest\bin\nhibernate-mapping.xsd
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\FullHtmlRender\Grid.js.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\FullHtmlRender\Grid.tpl
 E:\IRERPGrid\IRERPGridWebTest\bin\Templates\FireFox\Fetch\Grid.js.tpl
@@ -250,3 +249,4 @@ E:\IRERPGrid\IRERPGridWebTest\bin\it\DotLiquid.resources.dll
 E:\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.csprojResolveAssemblyReference.cache
 E:\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.dll
 E:\IRERPGrid\IRERPGridWebTest\obj\Debug\IRERPGridWebTest.pdb
+E:\IRERPGrid\IRERPGridWebTest\bin\System.Web.Optimization.dll

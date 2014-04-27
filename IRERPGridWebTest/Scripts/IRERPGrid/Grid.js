@@ -40,7 +40,7 @@ var Grid = {
     },
 
     filter: function(filters) {
-        this.dataSource.filterByColumn(filters);
+        this.dataSource.setFilter(filters);
         this.refresh();
     },
 
