@@ -166,5 +166,59 @@ namespace IRERP.Web.Controls
             if(rtn.HasErrors()) return null; else return rtn;
 
         }
+        public static string MsdCritToWhereString(MsdLib.CSharp.BLLCore.MsdCriteria crit)
+        {
+            string rtn = "";
+            Func<MsdLib.CSharp.BLLCore.MsdCriteria, string> ToWhereString = new Func<MsdLib.CSharp.BLLCore.MsdCriteria, string>(x => {
+                string rtn1 = "";
+                switch (x.Operator)
+                {
+                    case  MsdLib.CSharp.BLLCore.MsdCriteriaOperator.lessThan:
+                        rtn1 = x.fieldName + "<" + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.lessThanOrEqual:
+                        rtn1 = x.fieldName + "<=" + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.notContains:
+                        rtn1 = x.fieldName + "not like " + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.notEqual:
+                        rtn1 = x.fieldName + "<>" + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.contains:
+                        rtn1 = x.fieldName + " like " + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.greaterThan:
+                        rtn1 = x.fieldName + ">" + x.value;
+                        break;
+                    case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.greaterThanOrEqual:
+                        rtn1 = x.fieldName + ">=" + x.value;
+                        break;
+
+                }
+                return rtn1;
+            });
+
+            switch (crit.Operator)
+            { 
+                case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.or:
+                    List<string> ors = new List<string>();
+                    foreach (var c in crit.criteria)
+                        ors.Add("("+MsdCritToWhereString(c)+")");
+                    rtn = string.Join(" or ", ors.ToArray());
+                    break;
+                case MsdLib.CSharp.BLLCore.MsdCriteriaOperator.and:
+                    List<string> ands = new List<string>();
+                    foreach (var c in crit.criteria)
+                        ands.Add("("+MsdCritToWhereString(c)+")");
+                    rtn = string.Join(" and ", ands.ToArray());
+                    break;
+                default:
+                    rtn = ToWhereString(crit);
+                    break;
+            }
+
+            return rtn;
+        }
     }
 }

@@ -69,7 +69,7 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
 
                  
                      
-                var response = Grid.Fetch(int.Parse(From), int.Parse(Count), Grid.Orders, null,
+                var response = Grid.Fetch(int.Parse(From), int.Parse(Count), Grid.Orders, Grid.Criterias,
                     IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath() + "\\bin");
                 return new IRERP_RestAPI.Bases.IRERPActionResults.IRERPMethodActionResult()
                 {

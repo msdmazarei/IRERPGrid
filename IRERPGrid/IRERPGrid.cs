@@ -77,13 +77,19 @@ namespace IRERP.Web.Controls
                        Grid.Orders.ForEach(x=> sortexpr+=x.Columnname+" "+x.Ordertype.ToString()+",");
                        sortexpr = sortexpr.Substring(0, sortexpr.Length - 1);
                        dt.DefaultView.Sort = sortexpr;
+                      
                        
-                       dt = dt.DefaultView.ToTable();
                    }
                    if (Grid.Criterias != null && Grid.Criterias.Count > 0)
                    {
                        //Do Criteria
+                       List<string> whs = new List<string>();
+                       foreach (var c in Grid.Criterias)
+                           whs.Add("(" + General.MsdCritToWhereString(c) + ")");
+                       string wh = string.Join(" and ", whs.ToArray());
+                       dt.DefaultView.RowFilter = wh;
                    }
+                   dt = dt.DefaultView.ToTable();
                    Datas = new List<DataRow>();
                    foreach (DataRow r in dt.Rows)
                        Datas.Add(r);
