@@ -170,7 +170,7 @@ namespace IRERP.Web.Controls
                     break;
             }
 
-            rtn.value = getTerm(node.ChildNodes[0]) ;
+            rtn.value = getTerm(node) ;
             return rtn;
         }
         dynamic getTerm(ParseTreeNode node)

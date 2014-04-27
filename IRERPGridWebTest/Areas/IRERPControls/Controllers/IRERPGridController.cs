@@ -27,6 +27,7 @@ namespace IRERPGridWebTest.Areas.IRERPControls.Controllers
             }
             return null;
         }
+        [ValidateInput(false)]
         public ActionResult Fetch()
         {
             string gridName = IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetHttpParameter("GridName");
