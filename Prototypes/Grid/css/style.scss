@@ -1,0 +1,55 @@
+html, body {
+	height: 100%;
+}
+
+body {
+	font: 100%/1.5em Helvetica, "Droid Arabic Naskh", Arial, sans-serif;
+	display: flex;
+	flex-flow: column;
+}
+
+body {
+	header {
+		background-color: #333;
+		box-shadow: inset 0 .35rem 0 0 #FF3617;
+		color: white;
+		position: relative;
+		// padding: 4rem 7.54rem 0;
+
+		flex: 0 0 8rem;
+
+		h1 {
+			line-height: 5rem;
+			font-size: 3rem;
+
+			position: absolute;
+			bottom: 0;
+			left: 3rem;
+			// width: 100%;
+		}
+	}
+
+	div[role=main] {
+		min-height: 4rem;
+
+		flex: 1 1 auto;
+
+		display: flex;
+		flex-flow: column;
+
+		overflow: hidden;
+	}
+
+	footer {
+		background-color: #eee;
+		flex: 0 0 3rem;
+	}
+}
+
+.grid-container {
+	overflow-y: scroll;
+
+	table {
+		width: 150%;
+	}
+}
