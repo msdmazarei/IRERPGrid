@@ -11,6 +11,7 @@
     <script src='../lib/js/jquery.js' type='text/javascript'></script>
     <script src='../lib/js/underscore.js' type='text/javascript'></script>
     <script src='../lib/js/backbone.js' type='text/javascript'></script>
+    <script src='../lib/js/q.js' type='text/javascript'></script>
 
     <script src='../lib/js/IRERPGrid/GridTable.js' type="text/javascript"></script>
     <script src='../lib/js/IRERPGrid/GridHeader.js' type="text/javascript"></script>
@@ -37,15 +38,23 @@
         <div data-grid-name='some-grid-name' role='application' class='grid-container'>
             <div role='toolbar'></div>
 
-            <table role='grid'>
+            <table role='grid' style='width: 100%;'>
+                <colgroup>
+                    <col data-name='name' width='25%' />
+                    <col data-name='url' width='30%' />
+                    <col data-name='pop' width='10%' />
+                    <col data-name='date' width='10%' />
+                    <col data-name='prop-pop' width='15%' />
+                    <col data-name='id' width='5%' />
+                </colgroup>
                 <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>URL</th>
-                        <th>Population</th>
-                        <th>Date</th>
-                        <th>% of World Population</th>
-                        <th>ID</th>
+                    <tr class='column-headers'>
+                        <th><span>Name</span></th>
+                        <th><span>URL</span></th>
+                        <th><span>Population</span></th>
+                        <th><span>Date</span></th>
+                        <th><span>% of World Population</span></th>
+                        <th><span>ID</span></th>
                     </tr>
                 </thead>
                 <tbody>

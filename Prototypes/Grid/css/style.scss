@@ -1,3 +1,5 @@
+@charset "UTF-8";
+
 html, body {
 	height: 100%;
 }
@@ -53,16 +55,9 @@ body {
 
 .grid-container {
 	overflow-y: scroll;
+	color: #444;
 
 	table {
-		width: 150%;
-	}
-
-	table, tbody {
-		outline: none;
-	}
-
-	tbody {
 		cursor: default;
 
 		-webkit-user-select: none;
@@ -74,13 +69,50 @@ body {
 		user-select: none;
 	}
 
+	table, tbody {
+		outline: none;
+	}
+
 	tr {
-		border-bottom: 1px solid #ccc;
+		border-bottom: 1px solid #ddd;
 		&.active {
 			background-color: #c23;
+			background: linear-gradient(to bottom, #ef512d 0%,#a52121 100%);
+			border-bottom-color: #a52121;
+			color: white;
 		}
 	}
-	td {
-		padding: .25em .5em;
+	td, .column-headers > th {
+		padding: .25rem .5rem;
+	}
+
+	.column-headers > th {
+		background-color: #f2f2f2;
+		background: linear-gradient(to bottom, #f8f8f8 0%, #ccc 100%);
+		font-weight: bold;
+		height: 1.5em;
+
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+
+		&:hover {
+			background-color: #e0e0e0;
+			background: linear-gradient(to bottom, #e8e8e8 0%, #bbb 100%);
+		}
+
+		&.asc:after, &.desc:after {
+	        display: inline;
+	        font-size: 0.75rem;
+	    	margin-left: .75rem;
+	    }
+
+	    &.asc:after {
+	        content: '▲';
+	    }
+
+	    &.desc:after {
+	        content: '▼';
+	    }
 	}
 }

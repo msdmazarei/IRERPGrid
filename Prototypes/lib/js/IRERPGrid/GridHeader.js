@@ -21,8 +21,14 @@ GridHeader.init = function( header ) {
 };
 
 GridHeader._onColumnClick = function(e) {
-    var col = $(e.target),
-        colName = col.data('column-name'),
+    var col, $target = $(e.target);
+
+    if (e.target.localName === 'th')
+        col = $target;
+    else
+        col = $target.parents('th');
+
+    var colName = col.data('column-name'),
         colOrder = col.data('column-sort-order') || 0;
 
     var orderMap = [null, 'asc', 'desc'];
