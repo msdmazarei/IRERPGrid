@@ -1,5 +1,27 @@
 @charset "UTF-8";
 
+@font-face {
+    font-family: 'CC-ICONS';
+    font-style: normal;
+    font-weight: normal;
+    src: url('http://mirrors.creativecommons.org/presskit/cc-icons.ttf') format('truetype');
+}
+
+span.cc {
+	font-family: 'CC-ICONS';
+	color: #ABB3AC;
+}
+i, em {
+	font-style: italic;
+}
+a, a:visited, a:active {
+	text-decoration: none;
+	color: inherit;
+}
+a:hover {
+	color: #f52;
+}
+
 html, body {
 	height: 100%;
 }
@@ -45,9 +67,10 @@ body {
 	footer {
 		background-color: #eee;
 		color: #666;
-		font-size: 2rem;
+		font-size: 1rem;
 		line-height: 3rem;
 		text-align: center;
+		font-family: 'Book Antiqua', serif;
 
 		flex: 0 0 3rem;
 	}
