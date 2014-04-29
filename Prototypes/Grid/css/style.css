@@ -26,9 +26,30 @@ body div[role=main] {
   overflow: hidden; }
 body footer {
   background-color: #eee;
+  color: #666;
+  font-size: 2rem;
+  line-height: 3rem;
+  text-align: center;
   flex: 0 0 3rem; }
 
 .grid-container {
   overflow-y: scroll; }
   .grid-container table {
     width: 150%; }
+  .grid-container table, .grid-container tbody {
+    outline: none; }
+  .grid-container tbody {
+    cursor: default;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    /* IE 10+ */
+    /* No support for these yet, use at own risk */
+    -o-user-select: none;
+    user-select: none; }
+  .grid-container tr {
+    border-bottom: 1px solid #ccc; }
+    .grid-container tr.active {
+      background-color: #c23; }
+  .grid-container td {
+    padding: .25em .5em; }
