@@ -60,6 +60,21 @@ GridTable._keyboardNav = function(key) {
     this._activateRow($row);
 };
 
+GridTable._scrollIntoView = function($row) {
+    var $container = this.$el.parents('.grid-container');
+
+    var docViewTop = $container.scrollTop();
+    var docViewBottom = docViewTop + $container.height();
+
+    var elemTop = $row.get(0).offsetTop;
+    var elemBottom = elemTop + $row.height();
+
+    if (elemTop < docViewTop)
+        $row.get(0).scrollIntoView(true);
+    else if (elemBottom > docViewBottom)
+        $row.get(0).scrollIntoView(false);
+};
+
 GridTable._activateRow = function($row) {
     if ($row.length == 0) return;
 
@@ -69,10 +84,12 @@ GridTable._activateRow = function($row) {
         else
             this.$activeRow.removeClass('active');
 
+    this.trigger('rowSelected', this.$activeRow);
+
     this.$activeRow = $row;
     this.$activeRow.addClass('active');
 
-    this.trigger('rowSelected', this.$activeRow);
+    this._scrollIntoView($row);
 };
 
 return GridTable;
