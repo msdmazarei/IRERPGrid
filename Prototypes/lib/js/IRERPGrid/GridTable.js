@@ -79,7 +79,7 @@ GridTable._activateRow = function($row) {
     if ($row.length == 0) return;
 
     if (this.$activeRow)
-        if (this.$activeRow == $row)
+        if (this.$activeRow.get(0) == $row.get(0))
             return;
         else
             this.$activeRow.removeClass('active');
