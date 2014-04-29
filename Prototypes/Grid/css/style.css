@@ -44,7 +44,8 @@ body footer {
     /* IE 10+ */
     /* No support for these yet, use at own risk */
     -o-user-select: none;
-    user-select: none; }
+    user-select: none;
+    table-layout: fixed; }
   .grid-container table, .grid-container tbody {
     outline: none; }
   .grid-container tr {
@@ -55,15 +56,15 @@ body footer {
       border-bottom-color: #a52121;
       color: white; }
   .grid-container td, .grid-container .column-headers > th {
-    padding: .25rem .5rem; }
+    padding: .25rem .5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden; }
   .grid-container .column-headers > th {
     background-color: #f2f2f2;
     background: linear-gradient(to bottom, #f8f8f8 0%, #cccccc 100%);
     font-weight: bold;
-    height: 1.5em;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden; }
+    height: 1.5em; }
     .grid-container .column-headers > th:hover {
       background-color: #e0e0e0;
       background: linear-gradient(to bottom, #e8e8e8 0%, #bbbbbb 100%); }

@@ -67,6 +67,8 @@ body {
 		/* No support for these yet, use at own risk */
 		-o-user-select: none;
 		user-select: none;
+
+		table-layout: fixed;
 	}
 
 	table, tbody {
@@ -84,6 +86,9 @@ body {
 	}
 	td, .column-headers > th {
 		padding: .25rem .5rem;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.column-headers > th {
@@ -91,10 +96,6 @@ body {
 		background: linear-gradient(to bottom, #f8f8f8 0%, #ccc 100%);
 		font-weight: bold;
 		height: 1.5em;
-
-		white-space: nowrap;
-		text-overflow: ellipsis;
-		overflow: hidden;
 
 		&:hover {
 			background-color: #e0e0e0;
