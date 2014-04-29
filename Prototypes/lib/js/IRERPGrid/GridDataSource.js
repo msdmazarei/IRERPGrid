@@ -62,7 +62,7 @@ GridDataSource._fetch = function(options) {
         }))
     };
 
-    this._ajax({
+    return this._ajax({
         url: this.uri,
         type: 'POST',
         data: requestParams,
@@ -81,12 +81,7 @@ GridDataSource._fetch = function(options) {
 
             this.trigger('refresh', result.items.html, this.state);
         }, this)
-    ).fail(function(error) {
-        if (error.ErrorCode)
-            console.error('ErrorCode:', error.ErrorCode, ', Message:', error.ErrorMessage);
-        else
-            throw error;
-    }).done();
+    );
 };
 
 /*** Geneva agreement! ***/

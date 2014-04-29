@@ -35,7 +35,14 @@ body footer {
 
 .grid-container {
   overflow-y: scroll;
-  color: #444; }
+  color: #444;
+  position: relative; }
+  .grid-container.loading {
+    overflow: hidden; }
+    .grid-container.loading tr.active {
+      background-color: #606060;
+      background: linear-gradient(to bottom, #797979 0%, #4d4d4d 100%);
+      border-bottom-color: #4d4d4d; }
   .grid-container table {
     cursor: default;
     -webkit-user-select: none;
@@ -76,3 +83,52 @@ body footer {
       content: '▲'; }
     .grid-container .column-headers > th.desc:after {
       content: '▼'; }
+
+@-webkit-keyframes bounce {
+  0%, 100% {
+    -webkit-transform: scale(0); }
+
+  50% {
+    -webkit-transform: scale(1); } }
+@keyframes bounce {
+  0%, 100% {
+    transform: scale(0);
+    -webkit-transform: scale(0); }
+
+  50% {
+    transform: scale(1);
+    -webkit-transform: scale(1); } }
+.loading-overlay {
+  background-color: rgba(0, 0, 0, 0.1);
+  cursor: default;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10000;
+  display: none; }
+
+.loading .loading-overlay {
+  display: flex;
+  flex-flow: column;
+  align-items: center; }
+  .loading .loading-overlay .spinner {
+    width: 4rem;
+    height: 4rem;
+    margin: auto;
+    position: relative; }
+  .loading .loading-overlay .double-bounce1, .loading .loading-overlay .double-bounce2 {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: #c53811;
+    opacity: 0.6;
+    position: absolute;
+    top: 0;
+    left: 0;
+    -webkit-animation: bounce 2.0s infinite ease-in-out;
+    animation: bounce 2.0s infinite ease-in-out; }
+  .loading .loading-overlay .double-bounce2 {
+    -webkit-animation-delay: -1.0s;
+    animation-delay: -1.0s; }

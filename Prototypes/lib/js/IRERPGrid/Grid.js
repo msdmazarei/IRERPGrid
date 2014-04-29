@@ -67,12 +67,17 @@ var Grid = {
     },
 
     _refreshGrid: function(itemsHTML, state) {
+        this.$container.removeClass('loading');
         this.pager.reset(state.totalPages, state.currentPage);
         this.body.setContents(itemsHTML);
     },
 
     _requestPage: function(page) {
-        this.dataSource.getPage(page);
+        this.$container.addClass('loading');
+
+        this.dataSource.getPage(page).fail(_.bind(function(e) {
+            this.$container.removeClass('loading');
+        }, this)).done();
     },
 
     _columnOrderChanged: function(columnName, order) {
