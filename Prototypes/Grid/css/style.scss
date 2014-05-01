@@ -109,13 +109,24 @@ body {
 		outline: none;
 	}
 
-	tr {
-		border-bottom: 1px solid #ddd;
+	tbody tr {
+		border-top: 1px solid #ddd;
+		&:last-child {
+			border-bottom: 1px solid #ddd;
+		}
 		&.active {
 			background-color: #c23;
 			background: linear-gradient(to bottom, #ef512d 0%,#a52121 100%);
-			border-bottom-color: #a52121;
+			border-top: 1px solid #ef512d;
+			// border-bottom-color: #a52121;
 			color: white;
+		}
+		&.active + tr {
+			border-top-color: #a52121;
+		}
+
+		&:first-child {
+			border-top: 0;
 		}
 	}
 	td, .column-headers > th {

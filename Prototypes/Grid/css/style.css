@@ -75,15 +75,19 @@ body footer {
     table-layout: fixed; }
   .grid-container table, .grid-container tbody {
     outline: none; }
-  .grid-container tr {
-    border-bottom: 1px solid #ddd; }
-    .grid-container tr.active {
+  .grid-container tbody tr {
+    border-top: 1px solid #ddd; }
+    .grid-container tbody tr:last-child {
+      border-bottom: 1px solid #ddd; }
+    .grid-container tbody tr.active {
       background-color: #c23;
       background: linear-gradient(to bottom, #ef512d 0%, #a52121 100%);
-      border-bottom-color: #a52121;
+      border-top: 1px solid #ef512d;
       color: white; }
-  .grid-container td, .grid-container .column-headers > th {
-    padding: .25rem .5rem;
+    .grid-container tbody tr.active + tr {
+      border-top-color: #a52121; }
+    .grid-container tbody tr:first-child {
+      border-top: 0; }
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden; }
