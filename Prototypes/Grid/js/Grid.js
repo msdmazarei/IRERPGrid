@@ -12,7 +12,7 @@ var Grid = {
         this._normalizeOptions(options);
 
         this.$container = $(container);
-        this.$table = this.$container.children('table[role=grid]');
+        this.$tableContainer = this.$container.children('.table-container');
         this.$toolbar = this.$container.children('[role=toolbar]');
 
         this.name = this.$container.data('grid-name');
@@ -23,12 +23,12 @@ var Grid = {
         this.dataSource.on('refresh', this._refreshGrid, this);
 
         this.header = Object.create( GridHeader );
-        this.header.init(this.$table.children('thead'));
+        this.header.init(this.$tableContainer.children('.header-container'));
         this.header.on('order', this._columnOrderChanged, this);
         this.header.on('filter', this.filter, this);
 
         this.body = Object.create( GridTable );
-        this.body.init(this.$table.children('tbody'));
+        this.body.init(this.$tableContainer.find('table[role=grid] > tbody'));
 
         this.pager = Object.create( GridPager );
         this.pager.init(this.$container.children('[role=navigation]'), options.totalPages);
@@ -66,17 +66,27 @@ var Grid = {
         this.options = options;
     },
 
+    _showLoading: function() {
+        this.$container.addClass('loading');
+    },
+    _hideLoading: function() {
+        setTimeout(_.bind(function() {
+            this.$container.removeClass('loading');
+        }, this), 2000);
+    },
+
     _refreshGrid: function(itemsHTML, state) {
-        this.$container.removeClass('loading');
+        this._hideLoading();
+
         this.pager.reset(state.totalPages, state.currentPage);
         this.body.setContents(itemsHTML);
     },
 
     _requestPage: function(page) {
-        this.$container.addClass('loading');
+        this._showLoading();
 
         this.dataSource.getPage(page).fail(_.bind(function(e) {
-            this.$container.removeClass('loading');
+            this._hideLoading();
         }, this)).done();
     },
 

@@ -13,22 +13,23 @@ var EventEmitter = require('backbone').Events;
 var GridHeader = Object.create( EventEmitter );
 
 GridHeader.init = function( header ) {
-    this.$filters = $(header).children('tr.column-filters');
-    this.$headers = $(header).children('tr.column-headers');
+    this.$container = $(header);
+    this.$filters = this.$container.children('.column-filters');
+    this.$headers = this.$container.children('.column-headers');
 
-    this.$headers.on('click', 'th', _.bind(this._onColumnClick, this));
+    this.$headers.on('click', 'li > a.header', _.bind(this._onColumnClick, this));
     this.$filters.on('keypress', 'input', _.bind(this._onFilter, this));
 };
 
 GridHeader._onColumnClick = function(e) {
     var col, $target = $(e.target);
 
-    if (e.target.localName === 'th')
+    if (e.target.parentElement.classList.contains('column-headers'))
         col = $target;
     else
-        col = $target.parents('th');
+        col = $target.parents('.column-headers > li');
 
-    var colName = col.data('column-name'),
+    var colName = col.data('name'),
         colOrder = col.data('column-sort-order') || 0;
 
     var orderMap = [null, 'asc', 'desc'];
@@ -47,7 +48,7 @@ GridHeader._onFilter = function(e) {
             var $el = $(el).children('input');
 
             if (!_.isEmpty($el.val()))
-                filters[$el.data('column-name')] = $el.val();
+                filters[$el.data('name')] = $el.val();
         });
         this.trigger('filter', filters);
 

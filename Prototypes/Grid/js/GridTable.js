@@ -61,7 +61,7 @@ GridTable._keyboardNav = function(key) {
 };
 
 GridTable._scrollIntoView = function($row) {
-    var $container = this.$el.parents('.grid-container');
+    var $container = this.$el.parents('.body-container');
 
     var docViewTop = $container.scrollTop();
     var docViewBottom = docViewTop + $container.height();
