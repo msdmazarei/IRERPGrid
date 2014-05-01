@@ -8,15 +8,11 @@ span.cc {
   font-family: 'CC-ICONS';
   color: #ABB3AC; }
 
-i, em {
-  font-style: italic; }
-
-a, a:visited, a:active {
-  text-decoration: none;
-  color: inherit; }
+a {
+  text-decoration: none; }
 
 a:hover {
-  color: #f52; }
+  color: #E7210D; }
 
 html, body {
   height: 100%; }
@@ -26,15 +22,21 @@ body {
   display: flex;
   flex-flow: column; }
 
+input, textarea {
+  font-size: 1rem;
+  line-height: 1.5em; }
+
 body header {
   background-color: #333;
   box-shadow: inset 0 .35rem 0 0 #FF3617;
   color: white;
   position: relative;
+  font-family: 'Book Antiqua', serif;
   flex: 0 0 8rem; }
   body header h1 {
-    line-height: 5rem;
-    font-size: 3rem;
+    line-height: 7.5rem;
+    font-size: 4rem;
+    font-style: italic;
     position: absolute;
     bottom: 0;
     left: 3rem; }
@@ -52,6 +54,8 @@ body footer {
   text-align: center;
   font-family: 'Book Antiqua', serif;
   flex: 0 0 3rem; }
+  body footer a:hover {
+    color: #f52; }
 
 .grid-container {
   overflow-y: scroll;
@@ -124,7 +128,7 @@ body footer {
     -webkit-transform: scale(1); } }
 .loading-overlay {
   background-color: rgba(0, 0, 0, 0.1);
-  cursor: default;
+  cursor: progress;
   position: absolute;
   top: 0;
   right: 0;
