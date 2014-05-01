@@ -58,16 +58,40 @@ body footer {
     color: #f52; }
 
 .grid-container {
-  overflow-y: scroll;
   color: #444;
-  position: relative; }
+  display: flex;
+  flex-direction: column; }
+  .grid-container input[type=text] {
+    border: 0;
+    outline: none;
+    background-color: transparent; }
   .grid-container.loading {
     overflow: hidden; }
     .grid-container.loading tr.active {
       background-color: #606060;
       background: linear-gradient(to bottom, #797979 0%, #4d4d4d 100%);
-      border-bottom-color: #4d4d4d; }
-  .grid-container table {
+      border-top-color: #797979; }
+    .grid-container.loading tr.active + tr {
+      border-top-color: #4d4d4d; }
+  .grid-container > * {
+    flex: 0 0 auto;
+    width: 100%; }
+  .grid-container .body-container {
+    overflow-y: scroll;
+    flex: 1 1 auto; }
+    .grid-container .body-container table {
+      width: 100%; }
+    .grid-container .body-container thead {
+      display: none; }
+  .grid-container .header-container {
+    flex: 0 0 auto; }
+  .grid-container .table-container {
+    flex: 1 1 auto;
+    min-height: 4em;
+    display: flex;
+    flex-direction: column;
+    overflow-x: scroll; }
+  .grid-container table, .grid-container .column-headers {
     cursor: default;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -92,25 +116,69 @@ body footer {
       border-top-color: #a52121; }
     .grid-container tbody tr:first-child {
       border-top: 0; }
+  .grid-container td, .grid-container .column-headers > li > * {
+    padding: .25rem .5rem;
+    flex: 1 1 auto; }
+  .grid-container td, .grid-container a.header {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden; }
-  .grid-container .column-headers > th {
+  .grid-container a.header span {
+    color: inherit; }
+    .grid-container a.header span:before {
+      content: ':';
+      padding-right: 0.25em; }
+  .grid-container .column-headers > li {
+    float: left;
     background-color: #f2f2f2;
     background: linear-gradient(to bottom, #f8f8f8 0%, #cccccc 100%);
     font-weight: bold;
-    height: 1.5em; }
-    .grid-container .column-headers > th:hover {
+    display: flex; }
+    .grid-container .column-headers > li > a {
+      display: block; }
+    .grid-container .column-headers > li > input {
+      font-size: 1em;
+      line-height: 1.5em;
+      display: none; }
+    .grid-container .column-headers > li:hover {
       background-color: #e0e0e0;
       background: linear-gradient(to bottom, #e8e8e8 0%, #bbbbbb 100%); }
-    .grid-container .column-headers > th.asc:after, .grid-container .column-headers > th.desc:after {
+      .grid-container .column-headers > li:hover .header-menu {
+        display: block; }
+    .grid-container .column-headers > li .header-menu {
+      display: none;
+      flex: 0 0 auto;
+      line-height: 1.5em;
+      font-family: FontAwesome;
+      font-style: normal;
+      font-weight: normal;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale; }
+      .grid-container .column-headers > li .header-menu:before {
+        content: "\f0b0"; }
+    .grid-container .column-headers > li.asc a.header:before, .grid-container .column-headers > li.desc a.header:before {
       display: inline;
       font-size: 0.75rem;
-      margin-left: .75rem; }
-    .grid-container .column-headers > th.asc:after {
+      margin-right: .5rem;
+      line-height: 1em; }
+    .grid-container .column-headers > li.asc a.header:before {
       content: '▲'; }
-    .grid-container .column-headers > th.desc:after {
+    .grid-container .column-headers > li.desc a.header:before {
       content: '▼'; }
+    .grid-container .column-headers > li.filter .header {
+      display: none; }
+    .grid-container .column-headers > li.filter input, .grid-container .column-headers > li.filter .header-menu {
+      display: block; }
+    .grid-container .column-headers > li.filter .header-menu {
+      color: #E7210D; }
+  .grid-container .column-filters th, .grid-container .column-filters td {
+    padding: 0; }
+  .grid-container .column-filters input {
+    border: 0;
+    outline: none;
+    width: 100%; }
+  .grid-container nav[role=navigation] li {
+    float: left; }
 
 @-webkit-keyframes bounce {
   0%, 100% {
@@ -126,6 +194,9 @@ body footer {
   50% {
     transform: scale(1);
     -webkit-transform: scale(1); } }
+.loading {
+  position: relative; }
+
 .loading-overlay {
   background-color: rgba(0, 0, 0, 0.1);
   cursor: progress;
