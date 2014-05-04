@@ -19,11 +19,17 @@ GridTable.init = function(tbody, totalPages) {
 
     this.$el.on('mousedown', 'tr', _.bind(this._rowMouseDown, this));
     this.$el.keydown(_.bind(this._keydown, this));
+
+    this.$el.on('mouseenter', 'tr', _.bind(this._rowMouseEnter, this));
 };
 
 GridTable.setContents = function(html) {
     this.$el.html(html);
     this.$activeRow = null;
+};
+
+GridTable._rowMouseEnter = function(e) {
+    this.trigger('rowHover', $(e.target).parent());
 };
 
 GridTable._rowMouseDown = function(e) {
