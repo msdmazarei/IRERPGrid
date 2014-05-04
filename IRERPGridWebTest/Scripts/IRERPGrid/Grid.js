@@ -12,27 +12,29 @@ var Grid = {
         this._normalizeOptions(options);
 
         this.$container = $(container);
-        this.$table = this.$container.children('table[role=grid]');
+        this.$tableContainer = this.$container.children('.table-container');
         this.$toolbar = this.$container.children('[role=toolbar]');
 
         this.name = this.$container.data('grid-name');
         this.columns = options.columns || {};
 
         this.dataSource = Object.create( GridDataSource );
-        this.dataSource.init(this.name);
+        this.dataSource.init(this.name, options.uri);
         this.dataSource.on('refresh', this._refreshGrid, this);
 
         this.header = Object.create( GridHeader );
-        this.header.init(this.$table.children('thead'));
+        this.header.init(this.$tableContainer.find('.header-container'));
         this.header.on('order', this._columnOrderChanged, this);
         this.header.on('filter', this.filter, this);
 
         this.body = Object.create( GridTable );
-        this.body.init(this.$table.children('tbody'));
+        this.body.init(this.$tableContainer.find('table[role=grid] > tbody'));
 
         this.pager = Object.create( GridPager );
         this.pager.init(this.$container.children('[role=navigation]'), options.totalPages);
         this.pager.on('requestPage', this._requestPage, this);
+
+        this.body.on('rowHover', this._customPager, this);
     },
 
     refresh: function() {
@@ -66,18 +68,58 @@ var Grid = {
         this.options = options;
     },
 
+    _showLoading: function() {
+        // this.$container.addClass('loading');
+    },
+    _hideLoading: function() {
+        // this.$container.removeClass('loading');
+    },
+
     _refreshGrid: function(itemsHTML, state) {
+        this._hideLoading();
+
         this.pager.reset(state.totalPages, state.currentPage);
         this.body.setContents(itemsHTML);
     },
 
     _requestPage: function(page) {
-        this.dataSource.getPage(page);
+        this._showLoading();
+
+        this.dataSource.getPage(page).fail(_.bind(
+            function(e) {
+                setTimeout(_.bind(function() {
+                    this._hideLoading();
+                }, this), 2000);
+            },
+        this)).done(_.bind(this._resetGridUI, this));
     },
 
     _columnOrderChanged: function(columnName, order) {
         this.dataSource.sort(columnName, order);
         this.refresh();
+    },
+
+    _resetGridUI: function() {
+        var sort = this.dataSource.state.sort;
+
+        this.header.$headers.children().each(function(index, header) {
+            var $header = $(header);
+            var field = $header.data('name');
+            var order = sort[field];
+
+            if (order == null)
+                $header.removeClass('asc desc');
+            else
+                $header.addClass(order);
+        });
+        // Refresh UI, based on the final DataSource state
+    },
+
+    _customPager: function($row) {
+        if (this.$tableContainer.offset().top + this.$tableContainer.height() - $row.offset().top < 2 * $row.height())
+            this.pager.$el.fadeIn(100);
+        else
+            this.pager.$el.fadeOut(100);
     }
 };
 

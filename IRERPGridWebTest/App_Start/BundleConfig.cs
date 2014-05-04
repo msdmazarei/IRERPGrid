@@ -27,7 +27,10 @@ namespace IRERPGridWebTest
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+            bundles.Add(new StyleBundle("~/Content/css").Include(
+                "~/Content/css/reset.css",
+                "~/Content/css/style.css",
+                "~/Content/css/font-awesome.css"));
 
             // BundleTable.EnableOptimizations = true;
         }

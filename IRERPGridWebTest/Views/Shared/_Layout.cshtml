@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+
+    <meta name=viewport content="width=device-width, minimum-scale=1.0, maximum-scale=1.0">
+
+    <title>Grid.js</title>
+
+    @Styles.Render("~/Content/css")
+
+    <script src="/Scripts/mini_require.js"></script>
+
+    @Scripts.Render("~/bundles/libraries")
+
+    @Scripts.Render("~/bundles/IRERPGrid")
+
+    <script type='text/javascript'>
+    window.require(['jquery', 'jquery-irerp-grid'], function($) {
+        $.fn.textWidth = function(text, font) {
+            if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl = $('<span>').hide().appendTo(document.body);
+            $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));
+            return $.fn.textWidth.fakeEl.width();
+        };
+    });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Grid Prototype</h1>
+    </header>
+    <div role='main'>
+        @RenderBody()
+    </div>
+    <footer>
+        <a href='https://github.com/msdmazarei/IRERPGrid'><em>Grid.js</em></a> by IRERP Labs
+    </footer>
+</body>
+</html>
