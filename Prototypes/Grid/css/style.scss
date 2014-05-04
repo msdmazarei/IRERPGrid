@@ -153,6 +153,11 @@ body {
 
 		overflow-x: scroll;
 	}
+	.grid-width {
+		flex: 1 1 4em;
+		display: flex;
+		flex-direction: column;
+	}
 
 	table, .column-headers {
 		cursor: default;
