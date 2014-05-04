@@ -36,7 +36,7 @@ input, textarea {
 }
 
 body {
-	header {
+	& > header {
 		background-color: #333;
 		box-shadow: inset 0 .35rem 0 0 #FF3617;
 		color: white;
@@ -71,7 +71,7 @@ body {
 		overflow: hidden;
 	}
 
-	footer {
+	& > footer {
 		background-color: #eee;
 		color: #666;
 		font-size: 1rem;
@@ -92,6 +92,8 @@ body {
 
 	display: flex;
 	flex-direction: column;
+
+	flex: 1 1 auto;
 
 	input[type=text] {
 		border: 0;
