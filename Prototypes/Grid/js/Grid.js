@@ -72,9 +72,7 @@ var Grid = {
         this.$container.addClass('loading');
     },
     _hideLoading: function() {
-        setTimeout(_.bind(function() {
-            this.$container.removeClass('loading');
-        }, this), 2000);
+        this.$container.removeClass('loading');
     },
 
     _refreshGrid: function(itemsHTML, state) {
@@ -87,14 +85,36 @@ var Grid = {
     _requestPage: function(page) {
         this._showLoading();
 
-        this.dataSource.getPage(page).fail(_.bind(function(e) {
-            this._hideLoading();
-        }, this)).done();
+        this.dataSource.getPage(page).fail(_.bind(
+            function(e) {
+                setTimeout(_.bind(function() {
+                    this._hideLoading();
+                }, this), 2000);
+            },
+        this)).done(_.bind(this._resetGridUI, this));
     },
 
     _columnOrderChanged: function(columnName, order) {
         this.dataSource.sort(columnName, order);
         this.refresh();
+    },
+
+    _resetGridUI: function() {
+        var sort = this.dataSource.state.sort;
+
+        this.header.$headers.children().each(function(index, header) {
+            var $header = $(header);
+            var field = $header.data('name');
+            var order = sort[field];
+
+            if (order == null)
+                $header.removeClass('asc desc');
+            else
+                $header.addClass(order);
+        });
+        // Refresh UI, based on the final DataSource state
+    },
+
     _customPager: function($row) {
         if (this.$tableContainer.offset().top + this.$tableContainer.height() - $row.offset().top < 2 * $row.height())
             this.pager.$el.fadeIn(100);
