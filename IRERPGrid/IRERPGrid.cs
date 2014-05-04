@@ -13,8 +13,8 @@ namespace IRERP.Web.Controls
 {
 
     [LiquidType("Name", "Columns", "Totalpages", "Pageindex", "Pagesize", "Totalitems", "Divcontainerid",
-        "Tabledataid", "Fromitemindex", "Toitemindex", "Columns", "DataColunms", "Orders", "Criterias"
-        )]
+        "Tabledataid", "Fromitemindex", "Toitemindex", "Columns", "DataColunms", "Orders", "Criterias",
+        "Width")]
 
     public class IRERPGrid
     {
@@ -62,18 +62,18 @@ namespace IRERP.Web.Controls
             if (Grid.DatasRepository != null && Grid.DatasRepository.IndexOf("()") > 0)
             {
                IList Datas= (IList)General.CallStaticMethod(Grid.DatasRepository);
-               if (Datas!=null && 
+               if (Datas!=null &&
                    IRERP_RestAPI.Bases.IRERPApplicationUtilities.IsSubclassOfRawGeneric(typeof(IRERP_RestAPI.Bases.DataVirtualization.IRERPVList<,>),
                    Datas.GetType()))
                {
                    dynamic __datas = Datas;
                    dynamic filter = __datas.Filter;
                    if (filter.Orders == null) filter.Orders = new List<OrderBy>();
-                   if (Grid.Orders.Count > 0) 
+                   if (Grid.Orders.Count > 0)
                    foreach (var o in Grid.Orders)
                        filter.Orders.Add(o.ToOrderBy());
                    if (filter.Criterias == null) filter.Criterias = new List<MsdCriteria>();
-                   
+
                    if (Grid.Criterias!=null && Grid.Criterias.Count > 0)
                        foreach (var c in Grid.Criterias)
                            filter.Criterias.Add(c);
@@ -82,10 +82,10 @@ namespace IRERP.Web.Controls
 
                }
                else
-                //Check that Datas is MsdVirtualCollection or not(that sorts and criterias supports in db 
+                //Check that Datas is MsdVirtualCollection or not(that sorts and criterias supports in db
                if (
-                   (Grid.Orders != null && Grid.Orders.Count > 0) 
-                   || 
+                   (Grid.Orders != null && Grid.Orders.Count > 0)
+                   ||
                    (Grid.Criterias != null && Grid.Criterias.Count > 0)
                    )
                {
@@ -97,8 +97,8 @@ namespace IRERP.Web.Controls
                        Grid.Orders.ForEach(x=> sortexpr+=x.Columnname+" "+x.Ordertype.ToString()+",");
                        sortexpr = sortexpr.Substring(0, sortexpr.Length - 1);
                        dt.DefaultView.Sort = sortexpr;
-                      
-                       
+
+
                    }
                    if (Grid.Criterias != null && Grid.Criterias.Count > 0)
                    {
@@ -116,10 +116,10 @@ namespace IRERP.Web.Controls
                }
                Grid.__datas = Datas;
                return Datas;
-               
+
             }
 
-           
+
             return null;
         }
         public class IRERPGridRendered
@@ -150,7 +150,7 @@ namespace IRERP.Web.Controls
         public virtual string StartUpMethod { get; set; }
         public virtual void CallStartupMethod()
         {
-            if (StartUpMethod != null && StartUpMethod.Trim() != "") 
+            if (StartUpMethod != null && StartUpMethod.Trim() != "")
             General.CallStaticMethod(StartUpMethod);
         }
         public virtual List<IRERPGrid_Order> Orders { get; set; }
@@ -225,7 +225,7 @@ namespace IRERP.Web.Controls
             if (IRERP_RestAPI.Bases.IRERPApplicationUtilities.IsSubclassOfRawGeneric(typeof(IRERP_RestAPI.Bases.DataVirtualization.IRERPVList<,>), lst.GetType()))
             {
                 RetuenLst = new List<object>();
-            } 
+            }
             else
             RetuenLst = (IList)Activator.CreateInstance(lst.GetType());
 
@@ -282,7 +282,7 @@ namespace IRERP.Web.Controls
             if (Datacolumns == null)
                 if (Columns != null && Columns.Count > 0)
                     Datacolumns = Columns;
-                
+
             RegisterTags();
             if (GridHtmlTemplateName.IndexOf('\\') != 0)
                 GridHtmlTemplateName = "\\" + GridHtmlTemplateName;
@@ -385,4 +385,6 @@ new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas cou
             return rtn;
         }
     }
+
+    public string Width { get; set; }
 }
