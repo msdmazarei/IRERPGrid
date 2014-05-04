@@ -23,7 +23,7 @@ var Grid = {
         this.dataSource.on('refresh', this._refreshGrid, this);
 
         this.header = Object.create( GridHeader );
-        this.header.init(this.$tableContainer.children('.header-container'));
+        this.header.init(this.$tableContainer.find('.header-container'));
         this.header.on('order', this._columnOrderChanged, this);
         this.header.on('filter', this.filter, this);
 
