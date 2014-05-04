@@ -7,12 +7,12 @@
     ViewBag.Title = "Home Page";
 }
 @{
-    var grd = new IRERPGrid(){Name="GridAssemblies"+Request.GetHashCode().ToString(), ViewName =  VirtualPath};
+    var grd = new IRERPGrid() { Name = "some-grid-name", ViewName = VirtualPath, Width = "100%" };
     grd.Columns = new List<IRERPGrid_Column>();
-    grd.Columns.Add(new IRERPGrid_Column() { Name="Name",Title="Name",type="string"});
-    grd.Columns.Add(new IRERPGrid_Column() { Name = "FullName", Title = "FullName", type = "string" });
+    grd.Columns.Add(new IRERPGrid_Column() { Name = "Name", Title = "Name", type = "string", Width = "40%" });
+    grd.Columns.Add(new IRERPGrid_Column() { Name = "FullName", Title = "FullName", type = "string", Width = "60%" });
     grd.DatasRepository = "IRERPGridWebTest.Repositories.AssemblyRepositoryTest.AllAssemblies()";
-    
+
     General.StoreGrid(grd);
 }
-@Html.Raw(grd.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath()+"bin").ToHtml())
+@Html.Raw(grd.GetGridForHtmlPage(IRERP_RestAPI.Bases.IRERPApplicationUtilities.PhysicalApplicationPath() + "bin").ToHtml())

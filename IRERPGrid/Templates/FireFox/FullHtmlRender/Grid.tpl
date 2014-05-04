@@ -1,22 +1,13 @@
-﻿<div id="{{Grid.Divcontainerid}}" data-grid-name="{{Grid.Name}}" role='application'>
-	<div role='toolbar'></div>
+﻿<div data-grid-name='{{Grid.Name}}' role='application' class='grid-container'>
+	  {% include FullHtmlRender/Grid.LoadingOverlay.tpl %}
+	  {% include FullHtmlRender/Grid.Toolbar.tpl %}
 
-	<table id="{{Grid.Tabledataid}}" role='grid' tabindex='0'>
-		<caption>Grid Template For Grid {{Grid.Name}}</caption>
-
-		{% include Grid.Header.tpl %}
-
-		<tbody>
-		{% for row in GridData %}
-			<tr>
-			{%for col in Grid.Columns %}
-				<td>{% GGRCV row col %}</td>
-			{%endfor%}
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
-
-	{% comment %}Pager Section{% endcomment %}
-	{% include FullHtmlRender/Grid.Pager.tpl with Grid %}
+    <!-- Gholi -->
+    <div class='table-container'>
+        <div class='grid-width' style='width: {{Grid.Width}}'>
+            {% include FullHtmlRender/Grid.Header.tpl with Grid %}
+			      {% include FullHtmlRender/Grid.Body.tpl widh Grid %}
+		    </div>
+    </div>
+	  {% include FullHtmlRender/Grid.Pager.tpl with Grid %}
 </div>
