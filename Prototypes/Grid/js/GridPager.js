@@ -23,7 +23,7 @@ GridPager.reset = function(totalPages, currentPage) {
     this.currentPage = currentPage || 0;
 
     // TODO: Put UI stuff (e.g. disabling nav buttons when appropriate) here.
-    this.$el.children('.current-page').text(this.currentPage + 1 + ' / ' + this.totalPages);
+    this.$el.find('.current-page').text(this.currentPage + 1); // + ' / ' + this.totalPages);
 };
 
 GridPager._navButtonsClick = function(e) {
@@ -32,7 +32,7 @@ GridPager._navButtonsClick = function(e) {
 
     switch (rel) {
         case 'first': page = 0; break;
-        case 'previous': page = Math.max(0, this.currentPage - 1); break;
+        case 'prev': page = Math.max(0, this.currentPage - 1); break;
         case 'next': page = Math.min(this.currentPage + 1, this.totalPages); break;
         case 'last': page = this.totalPages - 1; break;
     }
