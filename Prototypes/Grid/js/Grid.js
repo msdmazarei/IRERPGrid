@@ -19,7 +19,7 @@ var Grid = {
         this.columns = options.columns || {};
 
         this.dataSource = Object.create( GridDataSource );
-        this.dataSource.init(this.name);
+        this.dataSource.init(this.name, options.uri);
         this.dataSource.on('refresh', this._refreshGrid, this);
 
         this.header = Object.create( GridHeader );
