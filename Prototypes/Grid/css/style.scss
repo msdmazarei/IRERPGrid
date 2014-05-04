@@ -146,6 +146,8 @@ body {
 		flex: 1 1 auto;
 		min-height: 4em;
 
+		width: 100%;
+
 		display: flex;
 		flex-direction: column;
 
@@ -231,13 +233,18 @@ body {
 			display: none;
 		}
 
-		&:hover {
+		&:hover, &.filter {
 			background-color: #e0e0e0;
 			background: linear-gradient(to bottom, #e8e8e8 0%, #bbb 100%);
 
 			.header-menu {
 				display: block;
 			}
+		}
+		&.filter {
+			.header { display: none; }
+			input { display: block }
+			.header-menu { color: #E7210D; }
 		}
 
 		.header-menu {
@@ -271,22 +278,8 @@ body {
 	    &.desc a.header:before {
 	        content: '▼';
 	    }
-
-		&.filter {
-			.header { display: none; }
-			input, .header-menu { display: block }
-			.header-menu { color: #E7210D; }
-		}
 	}
 
-	.column-filters {
-		th, td {
-			padding: 0;
-		}
-		input {
-			border: 0;
-			outline: none;
-			width: 100%;
 
 		}
 	}
