@@ -362,3 +362,28 @@ body {
 	  animation-delay: -1.0s;
 	}
 }
+
+@media all and (max-width: 640px) {
+	body > header {
+		flex: 0 0 6rem;
+
+		h1 {
+			line-height: 6rem;
+			font-size: 2.5rem;
+		}
+	}
+	.grid-width {
+		min-width: 300%;
+	}
+	.header-container {
+		.header-menu {
+			display: block !important;
+		}
+	}
+}
+
+@media all and (max-height: 480px) {
+	body > header {
+		display: none;
+	}
+}
