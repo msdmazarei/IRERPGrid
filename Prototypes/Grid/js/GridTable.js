@@ -84,7 +84,7 @@ GridTable._activateRow = function($row) {
         else
             this.$activeRow.removeClass('active');
 
-    this.trigger('rowSelected', this.$activeRow);
+    this.trigger('rowSelected', $row);
 
     this.$activeRow = $row;
     this.$activeRow.addClass('active');
