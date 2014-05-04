@@ -5,10 +5,28 @@ var _ = require('underscore');
 var Q = require('q');
 var EventEmitter = require('backbone').Events;
 
-var GridDataSource = Object.create( EventEmitter );
+var GridDataSource = Object.create( EventEmitter, {
+    requestState: {
+        get: function() {
+            var state = { sort: {}, filter: {} };
 
-GridDataSource.init = function(gridName) {
-    this.uri = '/IRERPControls/IRERPGrid/Fetch';
+            state.filter = _.clone(this._requestState.filter);
+            state.sort = _.clone(this._requestState.sort);
+
+            _.each(this._requestState.sort, function(order, field) {
+                if (order !== null)
+                    state.sort[field] = order;
+                else
+                    delete state.sort[field];
+            });
+
+            return state;
+        }
+    }
+});
+
+GridDataSource.init = function(gridName, uri) {
+    this.uri = (uri || '') + '/IRERPControls/IRERPGrid/Fetch';
     this.items = [];
 
     this.activeFetchRequest = null;
@@ -22,30 +40,32 @@ GridDataSource.init = function(gridName) {
         sort: {},
         filter: {}
     };
+
+    this._requestState = { sort: {}, filter: {} };
 };
 
-GridDataSource.getPage = function(index, options) {
-    options = options || {};
+GridDataSource.getPage = function(index) { //, options) {
     var pageSize = this.state.pageSize,
         fromIndex = index * pageSize;
 
-    return this._fetch({from: fromIndex, count: pageSize});
+    var options = {from: fromIndex, count: pageSize};
+
+    return this._fetch(options);
 };
 
 GridDataSource.sort = function(columnName, order) {
-    if (order != null)
-        this.state.sort[columnName] = order;
-    else
-        delete this.state.sort[columnName];
+    this._requestState.sort[columnName] = order;
 };
 
 GridDataSource.setFilter = function(filters) {
-    this.state.filter = filters;
+    this._requestState.filter = filters;
 };
 
 GridDataSource._fetch = function(options) {
     if (this.activeFetchRequest !== null)
         this.activeFetchRequest.abort();
+
+    var state = this.requestState;
 
     var that = this;
     var requestParams = {
@@ -53,11 +73,11 @@ GridDataSource._fetch = function(options) {
         From: options.from,
         Count: options.count,
 
-        ColumnsSorts: JSON.stringify(_.map(this.state.sort, function(order, colName) {
+        ColumnsSorts: JSON.stringify(_.map(state.sort, function(order, colName) {
             return { Columnname: colName, Ordertype: order };
         })),
 
-        ClientColumnCriteria: JSON.stringify(_.map(this.state.filter, function(filter, colName) {
+        ClientColumnCriteria: JSON.stringify(_.map(state.filter, function(filter, colName) {
             return { Columnname: colName, Condition: filter };
         }))
     };
@@ -77,7 +97,7 @@ GridDataSource._fetch = function(options) {
             this.items = result.items.json;
 
             // Merge result.stats with this.state
-            _.extend(this.state, result.stats);
+            _.extend(this.state, state, result.stats);
 
             this.trigger('refresh', result.items.html, this.state);
         }, this)
