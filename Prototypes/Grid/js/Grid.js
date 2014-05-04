@@ -33,6 +33,8 @@ var Grid = {
         this.pager = Object.create( GridPager );
         this.pager.init(this.$container.children('[role=navigation]'), options.totalPages);
         this.pager.on('requestPage', this._requestPage, this);
+
+        this.body.on('rowHover', this._customPager, this);
     },
 
     refresh: function() {
@@ -93,6 +95,11 @@ var Grid = {
     _columnOrderChanged: function(columnName, order) {
         this.dataSource.sort(columnName, order);
         this.refresh();
+    _customPager: function($row) {
+        if (this.$tableContainer.offset().top + this.$tableContainer.height() - $row.offset().top < 2 * $row.height())
+            this.pager.$el.fadeIn(100);
+        else
+            this.pager.$el.fadeOut(100);
     }
 };
 
