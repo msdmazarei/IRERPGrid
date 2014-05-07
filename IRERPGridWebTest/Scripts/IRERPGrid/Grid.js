@@ -116,7 +116,8 @@ var Grid = {
     },
 
     _customPager: function($row) {
-        if (this.$tableContainer.offset().top + this.$tableContainer.height() - $row.offset().top < 2 * $row.height())
+        if ((this.$tableContainer.offset().top + this.$tableContainer.height() - $row.offset().top < 2 * $row.height()) ||
+            ($row.next().length == 0))
             this.pager.$el.fadeIn(100);
         else
             this.pager.$el.fadeOut(100);
