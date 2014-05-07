@@ -33,7 +33,7 @@ GridTable._rowMouseEnter = function(e) {
 };
 
 GridTable._rowMouseDown = function(e) {
-    this._activateRow($(e.target).parent());
+    this._activateRow($(e.target).parents('tr'));
 };
 
 GridTable._keydown = function(e) {
