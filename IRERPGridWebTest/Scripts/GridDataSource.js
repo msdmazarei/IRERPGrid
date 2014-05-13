@@ -9,9 +9,10 @@ var EventEmitter = require('IRERP/lib/backbone-events');
 var GridDataSource = Object.create( EventEmitter, {
     requestState: {
         get: function() {
-            var state = { sort: {}, filter: {} };
+            var state = {};
 
             state.filter = _.clone(this._requestState.filter);
+            state.formatters = _.clone(this._requestState.formatters);
             state.sort = _.clone(this._requestState.sort);
 
             _.each(this._requestState.sort,
@@ -37,7 +38,7 @@ GridDataSource.init = function(gridName, uri) {
 
     this.gridName = gridName;
     this.state = {
-        currentPage: null,
+        currentPage: 0,
         pageSize: 10,
         totalPages: null,
         totalItems: null,
@@ -57,6 +58,10 @@ GridDataSource.getPage = function(index) { //, options) {
 
     return this._fetch(options);
 };
+
+GridDataSource.refresh = function() {
+    return this.getPage(this.state.currentPage);
+}
 
 GridDataSource.sort = function(columnName, order) {
     this._requestState.sort[columnName] = order;

@@ -36,6 +36,8 @@
             formatterModal.init('#myModal');
             formatterModal.on('submit', function() {
                 ds.setFormatter(formatterModal.items);
+                ds.refresh();
+                formatterModal.$el.modal('hide');
             });
         });
     });
