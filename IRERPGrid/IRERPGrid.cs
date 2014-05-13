@@ -384,7 +384,7 @@ new { ErrorCode = -12, ErrorMessage = "From is greater than Repository datas cou
 
             return rtn;
         }
-    }
 
-    public string Width { get; set; }
+        public string Width { get; set; }
+    }
 }
