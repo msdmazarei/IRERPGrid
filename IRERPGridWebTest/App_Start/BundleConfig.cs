@@ -29,6 +29,7 @@ namespace IRERPGridWebTest
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                 "~/Content/css/reset.css",
+                "~/Content/css/bootstrap.css",
                 "~/Content/css/style.css",
                 "~/Content/css/font-awesome.css"));
 

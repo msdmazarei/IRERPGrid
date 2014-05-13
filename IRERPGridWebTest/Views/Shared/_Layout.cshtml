@@ -9,14 +9,23 @@
 
     @Styles.Render("~/Content/css")
 
-    <script src="/Scripts/mini_require.js"></script>
-
-    @Scripts.Render("~/bundles/libraries")
-
-    @Scripts.Render("~/bundles/IRERPGrid")
+    <script src="/Scripts/require.min.js"></script>
+    <script type="text/javascript">
+        require.config({
+            baseUrl: '/Scripts',
+            paths: {
+                'IRERP/IRERPGrid': 'Grid'
+            },
+            shim: {
+                'bootstrap': {
+                    deps: ['jquery']
+                }
+            }
+        });
+    </script>
 
     <script type='text/javascript'>
-    window.require(['jquery', 'jquery-irerp-grid'], function($) {
+    require(['jquery', 'bootstrap'], function($) {
         $.fn.textWidth = function(text, font) {
             if (!$.fn.textWidth.fakeEl) $.fn.textWidth.fakeEl = $('<span>').hide().appendTo(document.body);
             $.fn.textWidth.fakeEl.text(text || this.val() || this.text()).css('font', font || this.css('font'));

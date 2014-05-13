@@ -1,4 +1,4 @@
-﻿<nav role='navigation'>
+﻿<nav class="grid-pager" role='navigation'>
     <ul>
         <li><button rel='first'>&#xf100;</button></li>
         <li><button rel='prev'>&#xf104;</button></li>

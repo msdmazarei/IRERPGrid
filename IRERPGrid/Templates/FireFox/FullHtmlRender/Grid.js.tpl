@@ -1,4 +1,4 @@
-﻿window.require(['jquery', 'jquery-irerp-grid'], function($) {
+﻿window.require(['jquery', 'Grid'], function($) {
     $(function() {
         window.grids = [];
 
@@ -17,6 +17,7 @@
             Orders          :   {%ToJson Grid.Orders%},
             AdvancedCriterias     :   {%ToJson Grid.Criterias%},
             ClientColumnCriterias :   [],
+            Formatters      : [],       // ToJson Grid.Formatters
             //Html Elements Ids & defines
             Divcontainerid  : "{{Grid.Divcontainerid}}",
             Tabledataid     : "{{Grid.Tabledataid}}",
@@ -24,6 +25,18 @@
             data : {%ToJson GridData Grid.Datacolumns %}
         };
 
-        window.grids.push(gridContainer.IRERPGrid(gridOptions));
+        require(['GridDataSource', 'GridFormatter', 'IRERP/IRERPGrid'], function(GridDataSource, GridFormatter) {
+            var ds = Object.create( GridDataSource );
+            ds.init("{{Grid.Name}}");
+
+            gridOptions.dataSource = ds;
+            window.grids.push(gridContainer.IRERPGrid(gridOptions));
+
+            var formatterModal = Object.create( GridFormatter );
+            formatterModal.init('#myModal');
+            formatterModal.on('submit', function() {
+                ds.setFormatter(formatterModal.items);
+            });
+        });
     });
 });
