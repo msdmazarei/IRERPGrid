@@ -1,10 +1,4 @@
-define(['require', 'exports', 'module', 'jquery', 'q', 'underscore'], function(require, exports, module) {
-
-var $ = require('jquery');
-var Q = require('q');
-var _ = require('underscore');
-
-var $ajax = $.ajax;
+define(['underscore'], function(_) {
 
 var GridDataSource = Object.create( {}, {
     page: {
@@ -136,7 +130,7 @@ function fetch() {
             active_fetch_request = jqXHR;
         }
     }).then(fetchWasSuccessful);
-};
+}
 
 function ajax() {
     /*** Geneva agreement! ***/
@@ -166,8 +160,47 @@ function ajax() {
         throw { ErrorCode: xhr.status, ErrorMessage: xhr.statusText };
     }
 
-    return Q($ajax.apply($, arguments)).then(convertResult, httpException);
-};
+    return post.apply(null, arguments).then(convertResult, httpException);
+}
+
+function post(options) {
+    function convertData(obj) {
+        return Object.keys(obj).map(function(key) {
+            return key + "=" + encodeURIComponent(obj[key]);
+        }).join("&");
+    }
+    // Return a new promise.
+    return new Promise(function(resolve, reject) {
+        // Do the usual XHR stuff
+        var req = new XMLHttpRequest();
+        req.open('POST', options.url);
+        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
+        
+        req.onload = function() {
+            // This is called even on 404 etc
+            // so check the status
+            if (req.status == 200) {
+                // Resolve the promise with the response text
+                resolve(req.response);
+            } else {
+                // Otherwise reject with the status text
+                // which will hopefully be a meaningful error
+                reject(Error(req.statusText));
+            }
+        };
+
+        // Handle network errors
+        req.onerror = function() {
+            reject(Error("Network Error"));
+        };
+
+        // Make the request
+        if (options.beforesend)
+            options.beforesend(req);
+        var data = convertData(options.data)
+        req.send(data);
+    });
+}
 
 return GridDataSource;
 

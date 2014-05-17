@@ -679,13 +679,12 @@ function refresh() {
 
     return ds.refresh()
         .then(resetGridUI)
-        .fail(function(e) {
+        .catch(function(e) {
             setTimeout(function() {
                 hideLoading();
             }, 2000);
             throw e;
-        })
-        .done();
+        });
 }
 
 function onHeaderSort(name, order) {
