@@ -1,4 +1,4 @@
-﻿window.require(['jquery', 'Greed.handcompiled', 'jquery.mousewheel'], function($) {
+﻿window.require(['jquery', 'Greed', 'jquery.mousewheel'], function($) {
     $(function() {
         window.grids = [];
 
