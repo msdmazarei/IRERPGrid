@@ -1,10 +1,10 @@
-define(function(require, exports, module) {
+define(['require', 'exports', 'module', 'jquery', 'underscore', 'backbone-events'], function(require, exports, module) {
 "use strict";
 
 var $ = require('jquery');
 var _ = require('underscore');
 
-var EventEmitter = require('IRERP/lib/backbone-events');
+var EventEmitter = require('backbone-events');
 
 
 function appendNewItem($criteriaList) {
