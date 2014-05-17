@@ -1,4 +1,4 @@
-﻿window.require(['jquery', 'Grid'], function($) {
+﻿window.require(['jquery', 'Greed.handcompiled', 'jquery.mousewheel'], function($) {
     $(function() {
         window.grids = [];
 
@@ -25,7 +25,7 @@
             data : {%ToJson GridData Grid.Datacolumns %}
         };
 
-        require(['GridDataSource', 'GridFormatter', 'IRERP/IRERPGrid'], function(GridDataSource, GridFormatter) {
+        require(['GridDataSource', 'GridFormatter'], function(GridDataSource, GridFormatter) {
             var ds = Object.create( GridDataSource );
             ds.init("{{Grid.Name}}");
 
