@@ -27,16 +27,17 @@
 
         require(['GridDataSource', 'GridFormatter'], function(GridDataSource, GridFormatter) {
             var ds = Object.create( GridDataSource );
-            ds.init("{{Grid.Name}}");
-
+            ds.init({grid_name: "{{Grid.Name}}"});
             gridOptions.dataSource = ds;
-            window.grids.push(gridContainer.IRERPGrid(gridOptions));
+
+            gridContainer.greed(gridOptions);
+            var grid = gridContainer.data('greed');
 
             var formatterModal = Object.create( GridFormatter );
             formatterModal.init('#myModal');
             formatterModal.on('submit', function() {
-                ds.setFormatter(formatterModal.items);
-                ds.refresh();
+                ds.formatters = formatterModal.items;
+                grid.refresh();
                 formatterModal.$el.modal('hide');
             });
         });

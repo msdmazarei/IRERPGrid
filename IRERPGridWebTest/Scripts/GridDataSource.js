@@ -1,86 +1,93 @@
 define(['require', 'exports', 'module', 'jquery', 'q', 'underscore'], function(require, exports, module) {
 
-var _ajax = require('jquery').ajax;
+var $ = require('jquery');
 var Q = require('q');
 var _ = require('underscore');
 
-var EventEmitter = require('IRERP/lib/backbone-events');
+var $ajax = $.ajax;
 
-var GridDataSource = Object.create( EventEmitter, {
-    requestState: {
-        get: function() {
-            var state = {};
-
-            state.filter = _.clone(this._requestState.filter);
-            state.formatters = _.clone(this._requestState.formatters);
-            state.sort = _.clone(this._requestState.sort);
-
-            _.each(this._requestState.sort,
-                function(order, field) {
-                    if (order !== null)
-                        state.sort[field] = order;
-                    else
-                        delete state.sort[field];
-                }
-            );
-
-            return state;
+var GridDataSource = Object.create( {}, {
+    page: {
+        get: function() { return internal_state.currentPage },
+        set: function(page) {
+            request_state.from = page * internal_state.pageSize;
         }
+    },
+    filter: {
+        get: function() { return _.clone(internal_state.filter) },
+        set: function(filters) {
+            request_state.filter = filters;
+            this.page = 0;
+        }
+    },
+    formatters: {
+        get: function() { return _.clone(internal_state.formatters) },
+        set: function(formatters) {
+            request_state.formatters = formatters;
+        }
+    },
+    sort: {
+        get: function() { return _.clone(internal_state.sort) }
     }
 });
 
-
-GridDataSource.init = function(gridName, uri) {
-    this.uri = (uri || '') + '/IRERPControls/IRERPGrid/Fetch';
-    this.items = [];
-
-    this.activeFetchRequest = null;
-
-    this.gridName = gridName;
-    this.state = {
-        currentPage: 0,
+var request_state = {},
+    internal_state = {
+        currentPage: null,
+        from: 0,
         pageSize: 10,
         totalPages: null,
         totalItems: null,
         sort: {},
         filter: {},
         formatters: []
-    };
+    },
+    items = [],
 
-    this._requestState = { sort: {}, filter: {}, formatters: [] };
-};
+    active_fetch_request = null,
 
-GridDataSource.getPage = function(index) { //, options) {
-    var pageSize = this.state.pageSize,
-        fromIndex = index * pageSize;
+    fetch_uri,
+    grid_name;
 
-    var options = {from: fromIndex, count: pageSize};
-
-    return this._fetch(options);
+GridDataSource.init = function(options) {
+    fetch_uri = (options.uri || '') + '/IRERPControls/IRERPGrid/Fetch';
+    grid_name = options.grid_name;
 };
 
 GridDataSource.refresh = function() {
-    return this.getPage(this.state.currentPage);
-}
-
-GridDataSource.sort = function(columnName, order) {
-    this._requestState.sort[columnName] = order;
+    return fetch();
 };
 
-GridDataSource.setFormatter = function(formatters) {
-    this._requestState.formatters = formatters;
+GridDataSource.sortBy = function(columnName, order) {
+    if (!request_state.sort)
+        request_state.sort = {};
+    request_state.sort[columnName] = order;
+    this.page = 0;
 };
 
-GridDataSource.setFilter = function(filters) {
-    this._requestState.filter = filters;
-};
+function fetch() {
+    function getRequestState() {
+        var s = _.extend({}, internal_state, request_state);
+        
+        if (request_state.sort) {
+            s.sort = {};
+            Object.keys(internal_state.sort).forEach(function(key) {
+                if (request_state.sort[key] !== null)
+                    s.sort[key] = internal_state.sort[key];
+            });
+            Object.keys(request_state.sort).forEach(function(key) {
+                if (request_state.sort[key] !== null)
+                    s.sort[key] = request_state.sort[key];
+            });
+        }
 
-GridDataSource._fetch = function(options) {
+        return s;
+    }
     function getRequestParams() {
         return {
-            GridName: that.gridName,
-            From: options.from,
-            Count: options.count,
+            GridName: grid_name,
+            From: state.from,
+            Count: state.pageSize,
 
             ColumnsSorts: JSON.stringify(
                 _.map(state.sort,
@@ -102,61 +109,64 @@ GridDataSource._fetch = function(options) {
         };
     }
     function fetchWasSuccessful(result) {
-        this.activeFetchRequest = null;
+        active_fetch_request = null;
 
-        this.items = result.items.json;
+        items = result.items.json;
 
-        // Merge result.stats with this.state
-        _.extend(this.state, state, result.stats);
+        // Merge result.stats with internal_state
+        _.extend(internal_state, state, result.stats);
+        request_state = {};
 
-        this.trigger('refresh', result.items.html, this.state);
-    };
+        return {
+            html: result.items.html,
+            state: internal_state
+        };
+    }
 
-    if (this.activeFetchRequest !== null)
-        this.activeFetchRequest.abort();
+    if (active_fetch_request !== null)
+        active_fetch_request.abort();
 
-    var state = this.requestState;
-    var that = this;
+    var state = getRequestState();
 
-    return this._ajax({
-        url: this.uri,
+    return ajax({
+        url: fetch_uri,
         type: 'POST',
         data: getRequestParams(),
-        context: this,
         beforeSend: function(jqXHR) {
-            this.activeFetchRequest = jqXHR;
+            active_fetch_request = jqXHR;
         }
-    }).then(fetchWasSuccessful.bind(this));
+    }).then(fetchWasSuccessful);
 };
 
-/*** Geneva agreement! ***/
-GridDataSource._ajax = function() {
-    return Q(_ajax.apply($, arguments)).then(
-        function(data) {
-            var result = $.parseJSON(data);
-            var jsonResult = $.parseJSON(result.data.JavaScript);
+function ajax() {
+    /*** Geneva agreement! ***/
+    function convertResult(data) {
+        var result = $.parseJSON(data);
+        var jsonResult = $.parseJSON(result.data.JavaScript);
 
-            /* Expected application errors */
-            if ( 'ErrorCode' in jsonResult )
-                throw jsonResult;
-            else
-                return {
-                    items: {
-                        json: jsonResult.data,
-                        html: result.data.HTML
-                    },
-                    stats: {
-                        totalPages: jsonResult.Totalpages,
-                        currentPage: jsonResult.Pageindex,
-                        totalItems: jsonResult.Totalitems
-                    }
-                };
-        },
-        /* Unexptected HTTP errors */
-        function(xhr) {
-            throw { ErrorCode: xhr.status, ErrorMessage: xhr.statusText };
-        }
-    );
+        /* Expected application errors */
+        if ( 'ErrorCode' in jsonResult )
+            throw jsonResult;
+        else
+            return {
+                items: {
+                    json: jsonResult.data,
+                    html: result.data.HTML
+                },
+                stats: {
+                    totalPages: jsonResult.Totalpages,
+                    currentPage: jsonResult.Pageindex,
+                    totalItems: jsonResult.Totalitems
+                }
+            };
+    }
+
+    /* Unexptected HTTP errors */
+    function httpException(xhr) {
+        throw { ErrorCode: xhr.status, ErrorMessage: xhr.statusText };
+    }
+
+    return Q($ajax.apply($, arguments)).then(convertResult, httpException);
 };
 
 return GridDataSource;
