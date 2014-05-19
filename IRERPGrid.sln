@@ -1,15 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.30110.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRERPGrid", "IRERPGrid\IRERPGrid.csproj", "{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestIRERPGrid", "TestIRERPGrid\TestIRERPGrid.csproj", "{A099C990-B61C-44A7-B6D7-BC1005B82D0A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IRERPGridWebTest", "IRERPGridWebTest\IRERPGridWebTest.csproj", "{22B2C056-BF39-461D-B4FD-F92D2C4AF238}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotLiquid", "DotLiquid\DotLiquid\DotLiquid.csproj", "{CB9372CD-9C1D-47AB-92D8-702D4D68324F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MsdLib", "D:\irerp\MsdLib\MsdLib.csproj", "{42AAC68E-5650-4DAD-858E-D0F9E9AC563B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDDD612F-E86A-4C10-B055-EEE6BF30C36A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A099C990-B61C-44A7-B6D7-BC1005B82D0A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22B2C056-BF39-461D-B4FD-F92D2C4AF238}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,10 +27,6 @@ Global
 		{CB9372CD-9C1D-47AB-92D8-702D4D68324F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB9372CD-9C1D-47AB-92D8-702D4D68324F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB9372CD-9C1D-47AB-92D8-702D4D68324F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{42AAC68E-5650-4DAD-858E-D0F9E9AC563B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{42AAC68E-5650-4DAD-858E-D0F9E9AC563B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{42AAC68E-5650-4DAD-858E-D0F9E9AC563B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{42AAC68E-5650-4DAD-858E-D0F9E9AC563B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

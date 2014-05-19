@@ -30,20 +30,30 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="IRERP_REST_API_Bases">
-      <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.5.0.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="IRERP_REST_API_Bases, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\IRERP_REST_API_Bases.dll</HintPath>
     </Reference>
     <Reference Include="Irony">
-      <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.dll</HintPath>
+      <HintPath>..\packages\Irony.0.9.0\lib\net45\Irony.dll</HintPath>
     </Reference>
     <Reference Include="Irony.Interpreter">
-      <HintPath>D:\Irony_2013_12_12\Irony.Interpreter\bin\Debug\Irony.Interpreter.dll</HintPath>
+      <HintPath>..\packages\Irony.Interpreter.0.9.0\lib\net45\Irony.Interpreter.dll</HintPath>
+    </Reference>
+    <Reference Include="MsdLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Debug\MsdLib.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <HintPath>D:\src\irerp\IRERP_REST_API_Bases\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -88,12 +98,26 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <SubType>Designer</SubType>
     </Content>
+    <None Include="App.config" />
+    <None Include="packages.config" />
     <None Include="Templates\FireFox\ColumnFilter\Grid.Header.Filter.String.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.Body.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
+    </Content>
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.Header.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.LoadingOverlay.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.Pager.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Templates\FireFox\FullHtmlRender\Grid.Toolbar.tpl">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <None Include="Templates\FireFox\Grid.Header.Filter.tpl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -106,10 +130,6 @@
     <ProjectReference Include="..\DotLiquid\DotLiquid\DotLiquid.csproj">
       <Project>{cb9372cd-9c1d-47ab-92d8-702d4d68324f}</Project>
       <Name>DotLiquid</Name>
-    </ProjectReference>
-    <ProjectReference Include="D:\irerp\MsdLib\MsdLib.csproj">
-      <Project>{42aac68e-5650-4dad-858e-d0f9e9ac563b}</Project>
-      <Name>MsdLib</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
