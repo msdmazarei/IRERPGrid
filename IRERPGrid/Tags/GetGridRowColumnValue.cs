@@ -23,17 +23,18 @@ namespace IRERP.Web.Controls.Tags
         {
             object RowObj =
                   (from x in context.Scopes
-                   from y in x.Keys
-                   where y == RowVariableName
-                   select x[y]).FirstOrDefault();
+                   where x.Keys.Contains(RowVariableName)
+                   select x[RowVariableName]).FirstOrDefault();
+            if (RowObj == null)
+                RowObj = (from env in context.Environments
+                          where env.Keys.Contains(RowVariableName)
+                          select env[RowVariableName]).FirstOrDefault();
             IRERPGrid_Column colobj =
                 (IRERPGrid_Column)
                   (from x in context.Scopes
-                   from y in x.Keys
-                   where y == ColumnVariableName
-                   select x[y]).FirstOrDefault();
-            result.Write(IRERPGrid.GetColumnValue(RowObj, colobj).ToString())
-            ;
+                   where x.Keys.Contains(ColumnVariableName)
+                   select x[ColumnVariableName]).FirstOrDefault();
+            result.Write(IRERPGrid.GetColumnValue(RowObj, colobj).ToString());
             base.Render(context, result);
         }
     }

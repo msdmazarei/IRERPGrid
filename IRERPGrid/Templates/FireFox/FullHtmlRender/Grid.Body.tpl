@@ -14,11 +14,7 @@
         </thead>
         <tbody>
         {% for row in GridData %}
-            <tr>
-            {%for col in Grid.Columns %}
-                <td>{% GGRCV row col %}</td>
-            {%endfor%}
-            </tr>
+            {% include Grid.Row.tpl row %}
         {% endfor %}
         </tbody>
     </table>

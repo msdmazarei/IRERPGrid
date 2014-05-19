@@ -9,6 +9,8 @@ using Newtonsoft.Json;
 using System.Data;
 using IRERP.Web.Controls.Tags;
 using MsdLib.CSharp.BLLCore;
+using Newtonsoft.Json.Linq;
+using System.IO;
 namespace IRERP.Web.Controls
 {
 
@@ -125,6 +127,7 @@ namespace IRERP.Web.Controls
         public class IRERPGridRendered
         {
             public string HTML { get; set; }
+            public JObject json { get; set; }
             public string JavaScript { get; set; }
             public string ToHtml()
             {
@@ -303,7 +306,42 @@ namespace IRERP.Web.Controls
                 //POJOs
                 template = System.IO.File.ReadAllText(BrowerName + JavaScriptTemplaeName);
                 TMP = Template.Parse(template);
-                rtn.JavaScript = TMP.Render(Hash.FromAnonymousObject(new { Grid = this, GridData = GetDatasToView() }));
+
+                var gridData = GetDatasToView();
+                List<Dictionary<string, object>> data = new List<Dictionary<string, object>>();
+                foreach (object a in gridData)
+                {
+                    Dictionary<string, object> item = new Dictionary<string, object>();
+                    foreach (IRERPGrid_Column col in Columns)
+                    {
+                        string colname = col.Name;
+                        if (a != null)
+                        {
+                            if (a.GetType() == typeof(System.Data.DataRow))
+                            {
+                                int ind = ((System.Data.DataRow)a).Table.Columns.IndexOf(colname);
+                                item.Add(colname, ((System.Data.DataRow)a).ItemArray[ind]);
+                            }
+                            else
+                                item.Add(colname, IRERP_RestAPI.Bases.IRERPApplicationUtilities.GetProperty(a, colname));
+                        }
+                    }
+                    template = File.ReadAllText(BrowerName + "\\Grid.Row.tpl");
+                    item.Add("_html", Template.Parse(template).Render(Hash.FromAnonymousObject(new { row = a, Grid = this })));
+                    data.Add(item);
+                }
+
+                rtn.json = JObject.FromObject(new
+                {
+                    totalPages = this.Totalpages,
+                    currentPage = this.Pageindex,
+                    pageSize = this.Pagesize,
+                    totalItems = this.Totalitems,
+                    from = this.Fromitemindex,
+                    to = this.Toitemindex,
+                    data = data
+                });
+                rtn.JavaScript = TMP.Render(Hash.FromAnonymousObject(new { Grid = this, GridData = gridData }));
 
             }
             return rtn;
