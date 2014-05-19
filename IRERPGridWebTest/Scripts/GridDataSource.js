@@ -1,4 +1,4 @@
-define(['underscore'], function(_) {
+define(['underscore', './xhr'], function(_, xhr) {
 
 var GridDataSource = Object.create( {}, {
     page: {
@@ -83,21 +83,21 @@ function fetch() {
             From: state.from,
             Count: state.pageSize,
 
-            ColumnsSorts: JSON.stringify(
+            ColumnsSorts:
                 _.map(state.sort,
                     function(order, colName) {
                         return { Columnname: colName, Ordertype: order };
                     }
                 )
-            ),
+            ,
 
-            ClientColumnCriteria: JSON.stringify(
+            ClientColumnCriteria: 
                 _.map(state.filter,
                     function(filter, colName) {
                         return { Columnname: colName, Condition: filter };
                     }
                 )
-            ),
+            ,
 
             RowFormatters: JSON.stringify( state.formatters )
         };
@@ -156,50 +156,11 @@ function ajax() {
     }
 
     /* Unexptected HTTP errors */
-    function httpException(xhr) {
-        throw { ErrorCode: xhr.status, ErrorMessage: xhr.statusText };
+    function httpException(e) {
+        throw e;
     }
 
-    return post.apply(null, arguments).then(convertResult, httpException);
-}
-
-function post(options) {
-    function convertData(obj) {
-        return Object.keys(obj).map(function(key) {
-            return key + "=" + encodeURIComponent(obj[key]);
-        }).join("&");
-    }
-    // Return a new promise.
-    return new Promise(function(resolve, reject) {
-        // Do the usual XHR stuff
-        var req = new XMLHttpRequest();
-        req.open('POST', options.url);
-        req.setRequestHeader("Content-type", "application/x-www-form-urlencoded")
-        
-        req.onload = function() {
-            // This is called even on 404 etc
-            // so check the status
-            if (req.status == 200) {
-                // Resolve the promise with the response text
-                resolve(req.response);
-            } else {
-                // Otherwise reject with the status text
-                // which will hopefully be a meaningful error
-                reject(Error(req.statusText));
-            }
-        };
-
-        // Handle network errors
-        req.onerror = function() {
-            reject(Error("Network Error"));
-        };
-
-        // Make the request
-        if (options.beforesend)
-            options.beforesend(req);
-        var data = convertData(options.data)
-        req.send(data);
-    });
+    return xhr.apply(null, arguments).then(convertResult, httpException);
 }
 
 return GridDataSource;
